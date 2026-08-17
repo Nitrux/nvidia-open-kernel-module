@@ -32,7 +32,7 @@ The source package must be available from the configured APT repositories, and `
 
 When run locally, the builder saves a timestamped `gh-build-*.log` beside the script. GitHub Actions does not create this extra file because Actions already captures the complete log.
 
-The builder supports native `amd64` and `arm64` builds. On amd64 it uses x86-64-v3 defaults; on arm64 it selects the aarch64 NVIDIA installer and uses native arm64 kernel packages. The Actions workflow uses a native arm64 runner and an arm64 Debian container for that job.
+The builder supports native `amd64` and `arm64` builds.
 
 # Licensing
 
