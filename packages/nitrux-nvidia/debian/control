@@ -1,0 +1,22 @@
+Source: nitrux-nvidia
+Section: non-free/libs
+Priority: optional
+Maintainer: Nitrux Latinoamericana S.C. <hello@nxos.org>
+Build-Depends: debhelper-compat (= 13)
+Standards-Version: 4.6.1
+
+Package: nitrux-nvidia
+Section: non-free/libs
+Architecture: amd64
+Depends: nvidia-driver-580, nvidia-alternative-580, libnvidia-egl-wayland2, nitrux-kernel-legacy
+Conflicts: nitrux-nvidia-open-driver, nvidia-alternative-570
+Replaces: nitrux-nvidia-open-driver, nvidia-alternative-570
+Description: metapackage for installing Nitrux nvidia drivers
+
+Package: nitrux-nvidia-open-driver
+Section: non-free/libs
+Architecture: amd64
+Depends: nvidia-open-driver-595, nvidia-alternative-595, libnvidia-egl-wayland2
+Conflicts: nitrux-nvidia, nvidia-alternative-580
+Replaces: nitrux-nvidia, nvidia-alternative-580
+Description: metapackage for installing Nitrux nvidia drivers

@@ -1,0 +1,1378 @@
+Source: nvidia-graphics-drivers-610
+Section: non-free/libs
+Priority: optional
+Maintainer: Debian NVIDIA Maintainers <pkg-nvidia-devel@lists.alioth.debian.org>
+Uploaders:
+ Andreas Beckmann <anbe@debian.org>,
+ Luca Boccassi <bluca@debian.org>,
+Vcs-Browser: https://salsa.debian.org/nvidia-team/nvidia-graphics-drivers
+Vcs-Git: https://salsa.debian.org/nvidia-team/nvidia-graphics-drivers.git -b 610
+Build-Depends:
+ debhelper-compat (= 13),
+Build-Depends-Arch:
+ dh-sequence-dkms,
+ dh-exec,
+ libvulkan1 (>= 1.0.42),
+ libxext6,
+ libgtk-3-dev,
+ po-debconf,
+ quilt,
+ xz-utils,
+ zstd,
+ libglvnd-dev,
+ libgtk2.0-0,
+Rules-Requires-Root: no
+Standards-Version: 4.6.2
+Homepage: https://www.nvidia.com
+Testsuite: autopkgtest-pkg-dkms
+XS-Autobuild: yes
+
+Package: firmware-nvidia-gsp-610
+Section: non-free-firmware/kernel
+Architecture: amd64 arm64
+Multi-Arch: foreign
+Depends:
+    ${misc:Depends}
+    nvidia-alternative-610 (= ${binary:Version}),
+Provides:
+    firmware-nvidia-gsp (= ${binary:Version}),
+    firmware-nvidia-gsp-610.57.04 (= ${binary:Version}),
+Conflicts:
+    firmware-nvidia-gsp,
+    firmware-nvidia-gsp-610.57.04
+Description: NVIDIA GSP firmware
+    The GPU System Processor (GSP) was first introduced in the Turing architecture and supports accelerating tasks traditionally performed by the driver on the CPU.
+    This package provides the firmware to drive the GSP.
+
+Package: libcuda1-610
+Architecture: i386 amd64 arm64 ppc64el
+Multi-Arch: same
+Pre-Depends:
+    nvidia-support-610,
+    ${misc:Pre-Depends}
+Depends:
+    nvidia-support-610,
+    nvidia-alternative-610 (= ${binary:Version}),
+    libnvidia-ptxjitcompiler1-610 (= ${binary:Version}),
+    libnvidia-pkcs11-openssl3-610 (= ${binary:Version}) [amd64],
+    ${shlibs:Depends}, ${misc:Depends}
+Recommends:
+    nvidia-kernel-module-610 (= ${binary:Version}),
+    nvidia-smi-610 (= ${binary:Version}),
+    libnvidia-cfg1-610 (= ${binary:Version}),
+    nvidia-persistenced-610 (= ${binary:Version}),
+Suggests:
+    nvidia-cuda-mps-610 (= ${binary:Version}),
+    nvidia-kernel-source-610 (= ${binary:Version})
+Provides:
+    libcuda.so.1 (= 610),
+    libcuda1-any,
+    libcuda-5.0-1,
+    libcuda-5.0-1-i386 [i386],
+    libcuda-5.5-1,
+    libcuda-5.5-1-i386 [i386],
+    libcuda-6.0-1,
+    libcuda-6.0-1-i386 [i386],
+    libcuda-6.5-1,
+    libcuda-6.5-1-i386 [i386],
+    libcuda-7.0-1,
+    libcuda-7.5-1,
+    libcuda-8.0-1,
+    libcuda-9.0-1,
+    libcuda-9.1-1,
+    libcuda-9.2-1,
+    libcuda-10.0-1,
+    libcuda-10.1-1,
+    libcuda-10.2-1,
+    libcuda-11.0-1,
+    libcuda-11.1-1,
+    libcuda-11.2-1,
+    libcuda-11.3-1,
+    libcuda-11.4-1,
+    libcuda-11.5-1,
+    libcuda-11.6-1,
+    libcuda-11.7-1,
+    libcuda-11.8-1,
+    libcuda-12.0-1,
+    libcuda-12.1-1,
+    libcuda-12.2-1,
+    libcuda-12.3-1,
+    libcuda1 (= ${binary:Version})
+Conflicts:
+    libcuda1
+Homepage: https://www.nvidia.com/CUDA
+Description: NVIDIA CUDA Driver Library
+
+Package: libcudadebugger1-610
+Architecture: amd64 arm64 ppc64el
+Multi-Arch: same
+Depends:
+    nvidia-alternative-610 (= ${binary:Version}),
+    libcuda1-610 (= ${binary:Version}),
+    ${shlibs:Depends}, ${misc:Depends}
+Provides:
+    libcudadebugger1 (= ${binary:Version})
+Conflicts:
+    libcudadebugger1
+Homepage: https://www.nvidia.com/CUDA
+Description: NVIDIA CUDA Debugger Library
+    The Compute Unified Device Architecture (CUDA) enables NVIDIA graphics processing units (GPUs) to be used for massively parallel general purpose computation.
+    This package contains the CUDA Debugger library for Pascal and later GPUs.
+
+### Note Re-sync Upstream once nvidia or upstream package it
+
+Package: libnvidia-vksc-core-610
+Architecture: amd64 arm64 ppc64el
+Multi-Arch: same
+Depends:
+    nvidia-alternative-610 (= ${binary:Version}),
+    nvidia-vulkan-common-610 (= ${binary:Version}),
+    ${shlibs:Depends}, ${misc:Depends}
+Provides:
+    libnvidia-vksc-core (= ${binary:Version})
+Conflicts:
+    libnvidia-vksc-core
+Description: NVIDIA Vulkan SC Validation layers
+
+Package: libegl-nvidia0-610
+Architecture: i386 amd64 arm64 ppc64el
+Multi-Arch: same
+Pre-Depends:
+    ${misc:Pre-Depends}
+Depends:
+    nvidia-alternative-610 (= ${binary:Version}),
+    ${shlibs:Depends}, ${misc:Depends}
+Provides:
+    libegl-nvidia0 (= ${binary:Version})
+Conflicts:
+    libegl-nvidia0
+Description: NVIDIA binary EGL library
+    EGL provides a platform-agnostic mechanism for creating rendering surfaces for use with other graphics libraries, such as OpenGL|ES.
+    See the description of the nvidia-driver package or /usr/share/doc/libgl1-nvidia-glx/README.txt.gz for a complete list of supported GPUs and PCI IDs.
+    This package contains the driver specific binary EGL implementation provided by NVIDIA that is accessed via GLVND.
+### End of note
+    
+Package: libgl1-nvidia-glvnd-glx-610
+Architecture: i386 amd64 arm64 ppc64el
+Multi-Arch: same
+Depends:
+    libgl1 (>= 0.2.999) | libgl1-glvnd-nvidia-glx-610,
+    libglx-nvidia0-610 (= ${binary:Version}),
+    nvidia-alternative-610 (= ${binary:Version}),
+    ${misc:Depends}
+Provides:
+    libgl1-nvidia-glx-any,
+    libgl1-nvidia-glvnd-glx (= ${binary:Version})
+Conflicts:
+    libgl1-nvidia-glvnd-glx
+Description: NVIDIA binary OpenGL/GLX library (GLVND variant)
+    The NVIDIA binary driver provides optimized hardware acceleration of OpenGL/GLX/EGL/GLES applications via a direct-rendering X Server for graphics cards using NVIDIA chip sets.
+    See the description of the nvidia-driver package or /usr/share/doc/libgl1-nvidia-glvnd-glx/README.txt.gz for a complete list of supported GPUs and PCI IDs.
+    This metapackage depends on the NVIDIA binary OpenGL/GLX implementation using GLVND and the corresponding GLVND loader library.
+
+Package: libgles-nvidia1-610
+Architecture: i386 amd64 arm64 ppc64el
+Multi-Arch: same
+Pre-Depends:
+    ${misc:Pre-Depends}
+Depends:
+    nvidia-alternative-610 (= ${binary:Version}),
+    libgles1 (>= 0.2.999) | libgles1-glvnd-nvidia-610,
+    libnvidia-eglcore-610 (= ${binary:Version}),
+    ${shlibs:Depends}, ${misc:Depends}
+Provides:
+    libgles-nvidia1 (= ${binary:Version})
+Conflicts:
+    libgles-nvidia1
+Description: NVIDIA binary OpenGL|ES 1.x library
+    OpenGL|ES is a cross-platform API for full-function 2D and 3D graphics on embedded systems - including consoles, phones, appliances and vehicles. It contains a subset of OpenGL plus a number of extensions for the special needs of embedded systems.
+    OpenGL|ES 1.x provides an API for fixed-function hardware.
+    See the description of the nvidia-driver package or /usr/share/doc/libgl1-nvidia-glx/README.txt.gz for a complete list of supported GPUs and PCI IDs.
+    This package contains the driver specific binary OpenGL|ES 1.x implementation by NVIDIA that is accessed via GLVND.
+
+Package: libgles-nvidia2-610
+Architecture: i386 amd64 arm64 ppc64el
+Multi-Arch: same
+Pre-Depends:
+    ${misc:Pre-Depends}
+Depends:
+    nvidia-alternative-610 (= ${binary:Version}),
+    libgles2 (>= 0.2.999) | libgles2-glvnd-nvidia-610,
+    libnvidia-eglcore-610 (= ${binary:Version}),
+    ${shlibs:Depends}, ${misc:Depends}
+Provides:
+    libgles-nvidia2 (= ${binary:Version})
+Conflicts:
+    libgles-nvidia2
+Description: NVIDIA binary OpenGL|ES 2.x library
+    OpenGL|ES is a cross-platform API for full-function 2D and 3D graphics on embedded systems - including consoles, phones, appliances and vehicles. It contains a subset of OpenGL plus a number of extensions for the special needs of embedded systems.
+    OpenGL|ES 2.x provides an API for programmable hardware including vertex and fragment shaders.
+    See the description of the nvidia-driver package or /usr/share/doc/libgl1-nvidia-glx/README.txt.gz for a complete list of supported GPUs and PCI IDs.
+    This package contains the driver specific binary OpenGL|ES 2.x implementation by NVIDIA that is accessed via GLVND.
+
+Package: libglx-nvidia0-610
+Architecture: i386 amd64 arm64 ppc64el
+Multi-Arch: same
+Pre-Depends:
+    ${misc:Pre-Depends}
+Depends:
+    nvidia-alternative-610 (= ${binary:Version}),
+    libglx0 | libglx0-glvnd-nvidia-610,
+    ${shlibs:Depends}, ${misc:Depends}
+Provides:
+    libglx-vendor,
+    libglx-nvidia0 (= ${binary:Version})
+Conflicts:
+    libglx-nvidia0
+Description: NVIDIA binary GLX library
+    GLX ("OpenGL Extension to the X Window System") provides an interface between OpenGL and the X Window System as well as extensions to OpenGL itself.
+    See the description of the nvidia-driver package or /usr/share/doc/libgl1-nvidia-glx/README.txt.gz for a complete list of supported GPUs and PCI IDs.
+    This package contains the driver specific binary GLX implementation by NVIDIA that is accessed via GLVND.
+
+Package: libnvcuvid1-610
+Architecture: i386 amd64 arm64 ppc64el
+Multi-Arch: same
+Pre-Depends:
+    ${misc:Pre-Depends}
+Depends:
+    libcuda1-610 (= ${binary:Version}),
+    nvidia-alternative-610 (= ${binary:Version}),
+    ${shlibs:Depends}, ${misc:Depends}
+Provides:
+    libnvcuvid1 (= ${binary:Version})
+Conflicts:
+    libnvcuvid1
+Description: NVIDIA CUDA Video Decoder runtime library
+    The Compute Unified Device Architecture (CUDA) enables NVIDIA graphics processing units (GPUs) to be used for massively parallel general purpose computation.
+    The NVIDIA CUDA Video Decoder (NVCUVID) library provides an interface to hardware video decoding capabilities on NVIDIA GPUs with CUDA.
+
+Package: libnvidia-allocator1-610
+Architecture: i386 amd64 arm64 ppc64el
+Multi-Arch: same
+Pre-Depends:
+    ${misc:Pre-Depends}
+Depends:
+    ${shlibs:Depends}, ${misc:Depends}
+    nvidia-alternative-610 (= ${binary:Version}),
+Recommends:
+    libnvidia-egl-gbm1-610,
+Provides:
+    libnvidia-allocator1 (= ${binary:Version})
+Conflicts:
+    libnvidia-allocator1
+Description: NVIDIA allocator runtime library
+    The NVIDIA binary driver provides optimized hardware acceleration of OpenGL/GLX/EGL/GLES applications via a direct-rendering X Server for graphics cards using NVIDIA chip sets.
+    This package contains the private nvidia-allocator runtime library which is used by other driver components.
+
+Package: libnvidia-api1-610
+Architecture: amd64 arm64 ppc64el
+Multi-Arch: same
+Pre-Depends:
+    ${misc:Pre-Depends}
+Depends:
+    nvidia-alternative-610 (= ${binary:Version}),
+    ${shlibs:Depends}, ${misc:Depends}
+Provides:
+    libnvidia-api1 (= ${binary:Version})
+Conflicts:
+    libnvidia-api1
+Description: NVAPI runtime library
+    NVAPI provides an interface for managing properties of GPUs.
+    This package contains the NVAPI runtime library.
+
+Package: libnvidia-cfg1-610
+Architecture: amd64 arm64 ppc64el
+Multi-Arch: same
+Pre-Depends:
+    ${misc:Pre-Depends}
+Depends:
+    nvidia-alternative-610 (= ${binary:Version}),
+    ${shlibs:Depends}, ${misc:Depends}
+Provides:
+    libnvidia-cfg.so.1 (= 610),
+    libnvidia-cfg1-any,
+    libnvidia-cfg1 (= ${binary:Version})
+Conflicts:
+    libnvidia-cfg1
+Description: NVIDIA binary OpenGL/GLX configuration library
+    The NVIDIA binary driver provides optimized hardware acceleration of OpenGL/GLX/EGL/GLES applications via a direct-rendering X Server for graphics cards using NVIDIA chip sets.
+    This package contains the private libnvidia-cfg runtime library which is used by other driver components.
+
+
+Package: libnvidia-eglcore-610
+Architecture: i386 amd64 arm64 ppc64el
+Multi-Arch: same
+Pre-Depends:
+    ${misc:Pre-Depends}
+Depends:
+    libnvidia-glvkspirv-610 (= ${binary:Version}),
+    nvidia-alternative-610 (= ${binary:Version}),
+    ${shlibs:Depends}, ${misc:Depends}
+Provides:
+    libnvidia-eglcore (= ${binary:Version}),
+Conflicts:
+    libnvidia-eglcore,
+Description: NVIDIA binary EGL core libraries
+    EGL provides a platform-agnostic mechanism for creating rendering surfaces for use with other graphics libraries, such as OpenGL|ES.
+    OpenGL|ES is a cross-platform API for full-function 2D and 3D graphics on embedded systems - including consoles, phones, appliances and vehicles. It contains a subset of OpenGL plus a number of extensions for the special needs of embedded systems.
+    This package contains the private core libraries used by the NVIDIA implementation of EGL and OpenGL|ES.
+
+Package: libnvidia-encode1-610
+Architecture: i386 amd64 arm64 ppc64el
+Multi-Arch: same
+Pre-Depends:
+    ${misc:Pre-Depends}
+Depends:
+    ${shlibs:Depends}, ${misc:Depends}
+    nvidia-alternative-610 (= ${binary:Version}),
+Provides:
+    libnvidia-encode1 (= ${binary:Version})
+Conflicts:
+    libnvidia-encode1
+Description: NVENC Video Encoding runtime library
+    The NVENC Video Encoding library provides an interface to video encoder hardware on supported NVIDIA GPUs.
+    This package contains the nvidia-encode runtime library.
+
+Package: libnvidia-fbc1-610
+Architecture: i386 amd64 arm64
+Multi-Arch: same
+Pre-Depends:
+    ${misc:Pre-Depends}
+Depends:
+    libcuda1-610 (= ${binary:Version}),
+    nvidia-alternative-610 (= ${binary:Version}),
+    ${shlibs:Depends}, ${misc:Depends}
+Provides:
+    libnvidia-fbc1 (= ${binary:Version})
+Conflicts:
+    libnvidia-fbc1
+Description: NVIDIA OpenGL-based Framebuffer Capture runtime library
+    The NVIDIA OpenGL-based Framebuffer Capture (NvFBCOpenGL) library provides a high performance, low latency interface to capture and optionally encode an OpenGL framebuffer. NvFBCOpenGL is a private API that is only available to approved partners for use in remote graphics scenarios.
+    This package contains the NvFBCOpenGL runtime library.
+
+Package: libnvidia-glcore-610
+Architecture: i386 amd64 arm64 ppc64el
+Multi-Arch: same
+Pre-Depends:
+    ${misc:Pre-Depends}
+Depends:
+    libnvidia-glvkspirv-610 (= ${binary:Version}),
+    nvidia-alternative-610 (= ${binary:Version}),
+    ${shlibs:Depends}, ${misc:Depends}
+Provides:
+    libnvidia-glcore (= ${binary:Version}),
+Conflicts:
+    libnvidia-glcore,
+Description: NVIDIA binary OpenGL/GLX core libraries
+    The NVIDIA binary driver provides optimized hardware acceleration of OpenGL/GLX/EGL/GLES applications via a direct-rendering X Server for graphics cards using NVIDIA chip sets.
+    This package contains the private core libraries used by the NVIDIA implementation of OpenGL and GLX.
+
+Package: libnvidia-glvkspirv-610
+Architecture: i386 amd64 arm64 ppc64el
+Multi-Arch: same
+Pre-Depends:
+    ${misc:Pre-Depends}
+Depends:
+    ${shlibs:Depends}, ${misc:Depends}
+    nvidia-alternative-610 (= ${binary:Version}),
+Provides:
+    libnvidia-glvkspirv (= ${binary:Version}),
+Conflicts:
+    libnvidia-glvkspirv,
+Description: NVIDIA binary Vulkan Spir-V compiler library
+    Vulkan is a multivendor open standard by the Khronos Group for 3D graphics.
+    This library provides a NVIDIA Vulkan Spir-V compiler which reduces shader compilation time and shader system memory consumption.
+    This package contains the private Spir-V compiler libraries used by the NVIDIA implementation of Vulkan.
+
+Package: libnvidia-gpucomp-610
+Architecture: i386 amd64 arm64 ppc64el
+Multi-Arch: same
+Pre-Depends:
+    ${misc:Pre-Depends}
+Depends:
+    ${shlibs:Depends}, ${misc:Depends}
+    nvidia-alternative-610 (= ${binary:Version}),
+Provides:
+    libnvidia-gpucomp (= ${binary:Version}),
+Conflicts:
+    libnvidia-gpucomp,
+Description: NVIDIA binary GPU compiler library
+
+Package: libnvidia-ml1-610
+Architecture: i386 amd64 arm64 ppc64el
+Multi-Arch: same
+Pre-Depends:
+    ${misc:Pre-Depends}
+Depends:
+    nvidia-alternative-610 (= ${binary:Version}),
+    ${shlibs:Depends}, ${misc:Depends}
+Provides:
+    libnvidia-ml.so.1 (= 610),
+    libnvidia-ml1 (= ${binary:Version}),
+Conflicts:
+    libnvidia-ml1,
+Homepage: https://developer.nvidia.com/nvidia-management-library-NVML
+Description: NVIDIA Management Library (NVML) runtime library
+    The NVIDIA Management Library (NVML) provides a monitoring and management API. It provides a direct access to the queries and commands exposed via nvidia-smi.
+    This package contains the nvidia-ml runtime library.
+
+Package: libnvidia-ngx1-610
+Architecture: amd64
+Multi-Arch: same
+Pre-Depends:
+    ${misc:Pre-Depends}
+Depends:
+    ${shlibs:Depends}, ${misc:Depends}
+    nvidia-alternative-610 (= ${binary:Version}),
+Provides:
+    libnvidia-ngx1 (= ${binary:Version}),
+Conflicts:
+    libnvidia-ngx1,
+Description: NVIDIA NGX runtime library
+    The NVIDIA binary driver provides optimized hardware acceleration of OpenGL/GLX/EGL/GLES applications via a direct-rendering X Server for graphics cards using NVIDIA chip sets.
+    This package contains the NVIDIA NGX runtime library.
+
+Package: libnvidia-nvvm4-610
+Architecture: i386 amd64 arm64 ppc64el
+Multi-Arch: same
+Pre-Depends:
+    ${misc:Pre-Depends}
+Depends:
+    ${shlibs:Depends}, ${misc:Depends}
+    nvidia-alternative-610 (= ${binary:Version}),
+Provides:
+    libnvidia-nvvm4 (= ${binary:Version}),
+Conflicts:
+    libnvidia-nvvm4,
+Description: NVIDIA NVVM Compiler library
+    The Compute Unified Device Architecture (CUDA) enables NVIDIA graphics processing units (GPUs) to be used for massively parallel general purpose computation.
+    This package contains the NVVM Compiler library.
+
+Package: libnvidia-nvvm70-610
+Architecture: amd64 arm64 ppc64el
+Multi-Arch: same
+Pre-Depends:
+    ${misc:Pre-Depends}
+Depends:
+    ${shlibs:Depends}, ${misc:Depends}
+    nvidia-alternative-610 (= ${binary:Version}),
+Provides:
+    libnvidia-nvvm70 (= ${binary:Version}),
+Conflicts:
+    libnvidia-nvvm70,
+Description: NVIDIA NVVM Compiler library
+    The Compute Unified Device Architecture (CUDA) enables NVIDIA graphics processing units (GPUs) to be used for massively parallel general purpose computation.
+    This package contains the NVVM Compiler library.
+
+Package: libnvidia-opticalflow1-610
+Architecture: i386 amd64 arm64 ppc64el
+Multi-Arch: same
+Pre-Depends:
+    ${misc:Pre-Depends}
+Depends:
+    ${shlibs:Depends}, ${misc:Depends}
+    nvidia-alternative-610 (= ${binary:Version}),
+Provides:
+    libnvidia-opticalflow1 (= ${binary:Version}),
+Conflicts:
+    libnvidia-opticalflow1,
+Homepage: https://developer.nvidia.com/opticalflow-sdk
+Description: NVIDIA Optical Flow runtime library
+    The NVIDIA Optical Flow SDK exposes the latest hardware capability of Turing GPUs dedicated to computing the relative motion of pixels between images.
+    This package contains the Optical Flow runtime library.
+
+Package: libnvidia-present-610
+Architecture: amd64 arm64 ppc64el
+Multi-Arch: same
+Pre-Depends:
+    ${misc:Pre-Depends}
+Depends:
+    ${shlibs:Depends}, ${misc:Depends}
+    nvidia-alternative-610 (= ${binary:Version}),
+Provides:
+    libnvidia-present (= ${binary:Version}),
+Conflicts:
+    libnvidia-present,
+Description: NVIDIA present runtime library
+
+Package: libnvidia-pkcs11-openssl3-610
+Architecture: amd64
+Multi-Arch: same
+Depends:
+    nvidia-alternative-610 (= ${binary:Version}),
+    ${shlibs:Depends}, ${misc:Depends}
+Provides:
+    libnvidia-pkcs11-openssl3 (= ${binary:Version}),
+Conflicts:
+    libnvidia-pkcs11-openssl3,
+Homepage: https://www.nvidia.com/CUDA
+Description: NVIDIA PKCS #11 Library (OpenSSL 3)
+    The Compute Unified Device Architecture (CUDA) enables NVIDIA graphics processing units (GPUs) to be used for massively parallel general purpose computation.
+    This package contains the NVIDIA PKCS #11 library with OpenSSL 3 backend.
+
+Package: libnvidia-ptxjitcompiler1-610
+Architecture: i386 amd64 arm64 ppc64el
+Multi-Arch: same
+Pre-Depends:
+    ${misc:Pre-Depends}
+Depends:
+    ${shlibs:Depends}, ${misc:Depends}
+    nvidia-alternative-610 (= ${binary:Version}),
+Provides:
+    libnvidia-ptxjitcompiler1 (= ${binary:Version}),
+Conflicts:
+    libnvidia-ptxjitcompiler1,
+Description: NVIDIA PTX JIT Compiler library
+        The Compute Unified Device Architecture (CUDA) enables NVIDIA graphics processing units (GPUs) to be used for massively parallel general purpose computation.
+        This package contains the runtime PTX JIT Compiler library.
+
+Package: libnvidia-rtcore-610
+Architecture: amd64 arm64
+Multi-Arch: same
+Pre-Depends:
+    ${misc:Pre-Depends}
+Depends:
+    ${shlibs:Depends}, ${misc:Depends}
+    nvidia-alternative-610 (= ${binary:Version}),
+Provides:
+    libnvidia-rtcore (= ${binary:Version}),
+Conflicts:
+    libnvidia-rtcore
+Description: NVIDIA binary Vulkan ray tracing (rtcore) library
+    Vulkan is a multivendor open standard by the Khronos Group for 3D graphics.
+    This library is part of the Vulkan real-time ray tracing extensions (VK_NV_raytracing) implementation by NVIDIA.
+    This package contains the private rtcore library used by the NVIDIA implementation of Vulkan.
+
+Package: libnvoptix1-610
+Architecture: amd64 arm64
+Multi-Arch: same
+Pre-Depends:
+    ${misc:Pre-Depends}
+Depends:
+    libcuda1-610 (= ${binary:Version}),
+    nvidia-alternative-610 (= ${binary:Version}),
+    ${shlibs:Depends}, ${misc:Depends}
+Provides:
+    libnvoptix1 (= ${binary:Version}),
+Conflicts:
+    libnvoptix1
+Description: NVIDIA implementation of the OptiX ray tracing engine
+    The OptiX API is an application framework for achieving optimal ray tracing performance on the GPU.
+    This package contains runtime library of the OptiX ray tracing engine implementation for NVIDIA CUDA. It is used by liboptix.so.* coming with applications using the OptiX API.
+
+Package: nvidia-alternative-610
+Architecture: i386 amd64 arm64 ppc64el
+Multi-Arch: foreign
+Pre-Depends:
+    dpkg (>= 1.17.21),
+    nvidia-support-610,
+    ${misc:Pre-Depends}
+Depends:
+    glx-alternative-nvidia (>= 1.2),
+    ${misc:Depends}
+Provides:
+    nvidia-alternative (= ${binary:Version}),
+    nvidia-alternative-any,
+    nvidia-alternative-kmod-alias,
+    nvidia-alternative--kmod-alias,
+    nvidia-alternative-610.57.04,
+    nvidia-alternative-610-kmod-alias,
+    nvidia-alternative-610.57.04-kmod-alias,
+Conflicts:
+    libglvnd0-nvidia,
+    libopengl0-glvnd-nvidia,
+    libglx0-glvnd-nvidia,
+    libgl1-glvnd-nvidia-glx,
+    libegl1-glvnd-nvidia,
+    libgles1-glvnd-nvidia,
+    libgles2-glvnd-nvidia,
+    nvidia-legacy-304xx-alternative,
+    nvidia-legacy-340xx-alternative,
+    nvidia-legacy-390xx-alternative,
+    nvidia-tesla-418-alternative,
+    nvidia-tesla-450-alternative,
+    nvidia-tesla-460-alternative,
+    nvidia-tesla-510-alternative,
+    nvidia-tesla-alternative,
+    nvidia-alternative-525,
+    nvidia-alternative-530,
+    nvidia-alternative-535,
+    nvidia-alternative-545,
+    nvidia-alternative-550,
+Description: allows the selection of NVIDIA as GLX provider
+    In setups with several NVIDIA driver versions installed (e.g. current and legacy) this metapackage registers an alternative to allow easy switching between the different versions.
+    Use 'update-glx --config nvidia' to select a version.
+    This package does not depend on the corresponding NVIDIA libraries. In order to install the NVIDIA driver and libraries, install the nvidia-driver package instead.
+
+Package: nvidia-cuda-mps-610
+Section: non-free/utils
+Architecture: amd64 arm64 ppc64el
+Depends:
+    ${shlibs:Depends}, ${misc:Depends}
+    nvidia-alternative-610 (= ${binary:Version}),
+Provides:
+    nvidia-cuda-mps (= ${binary:Version}),
+Conflicts:
+    nvidia-cuda-mps
+Description: NVIDIA CUDA Multi Process Service (MPS)
+    The Compute Unified Device Architecture (CUDA) enables NVIDIA graphics processing units (GPUs) to be used for massively parallel general purpose computation.
+    CUDA MPS is a feature that allows multiple CUDA processes to share a single GPU context. CUDA MPS should be transparent to CUDA programs.
+    CUDA MPS requires a device that supports Unified Virtual Address (UVA) and has compute capability SM 3.5 or higher. Pre-CUDA 4.0 APIs are not supported under CUDA MPS.
+
+Package: nvidia-driver-610
+Section: non-free/x11
+Architecture: amd64 arm64 ppc64el
+Pre-Depends:
+    nvidia-alternative-610 (= ${binary:Version}),
+Depends:
+    nvidia-driver-libs-610 (= ${binary:Version}),
+    nvidia-driver-bin-610 (= ${binary:Version}),
+    xserver-xorg-video-nvidia-610 (= ${binary:Version}),
+    nvidia-vdpau-driver-610 (= ${binary:Version}),
+    nvidia-alternative-610 (= ${binary:Version}),
+    nvidia-closed-kernel-module-610 (= ${binary:Version}),
+    nvidia-kernel-module-610 (= ${binary:Version}),
+    libgles-nvidia1-610 (= ${binary:Version}),
+    libgles-nvidia2-610 (= ${binary:Version}),
+    libnvidia-cfg1-610 (= ${binary:Version}),
+    libnvidia-encode1-610 (= ${binary:Version}),
+    nvidia-vulkan-icd-610 (= ${binary:Version}),
+    libnvidia-allocator1-610 (= ${binary:Version}),
+    libnvidia-rtcore-610 (= ${binary:Version}),
+    nvidia-smi-610 (= ${binary:Version}),
+    libcudadebugger1-610 (= ${binary:Version}),
+    libnvidia-fbc1-610 (= ${binary:Version}),
+    libnvoptix1-610 (= ${binary:Version}),
+    libnvidia-opticalflow1-610 (= ${binary:Version}),
+    libnvidia-present-610 (= ${binary:Version}) [amd64],
+    libnvidia-ngx1-610 (= ${binary:Version}) [amd64],
+    libnvidia-api1-610 (= ${binary:Version}),
+    nvidia-opencl-icd-610 (= ${binary:Version}),
+    nvidia-powerd-610 (= ${binary:Version}) [amd64],
+    nvidia-cuda-mps-610 (= ${binary:Version}),
+    nvidia-suspend-common-610 (= ${binary:Version}),
+    nvidia-persistenced-610 (= ${binary:Version}),
+    nvidia-settings-610 (= ${binary:Version}),
+    nvidia-modprobe-610 (= ${binary:Version}),
+    nvidia-xconfig-610 (= ${binary:Version}),
+    nvidia-support-610 (= ${binary:Version}),
+    libnvidia-egl-wayland1,
+    libnvidia-egl-gbm1,
+# Note: Not Upstream
+    libnvidia-vksc-core-610 (= ${binary:Version}),
+# End of Note
+    ${misc:Depends}
+Recommends:
+    nvidia-vaapi-driver,
+Suggests:
+    nvidia-kernel-source-610,
+    nvidia-closed-kernel-source-610,
+Provides:
+    nvidia-driver (= ${binary:Version}),
+    nvidia-driver-full (= ${binary:Version}),
+    nvidia-closed-driver (= ${binary:Version}),
+    nvidia-closed-driver-full (= ${binary:Version}),
+    nvidia-driver-any,
+    nvidia-glx-any,
+Conflicts:
+    nvidia-driver,
+    nvidia-open-driver,
+    nvidia-open-driver-610,
+Description: NVIDIA 610.57.04 metapackage
+    This metapackage depends on the NVIDIA binary driver and libraries
+    that provide optimized hardware acceleration of
+    OpenGL/GLX/EGL/GLES/Vulkan applications via a direct-rendering X Server.
+
+Package: nvidia-open-driver-610
+Section: non-free/x11
+Architecture: amd64 arm64 ppc64el
+Pre-Depends:
+    nvidia-alternative-610 (= ${binary:Version}),
+Depends:
+    nvidia-driver-libs-610 (= ${binary:Version}),
+    nvidia-driver-bin-610 (= ${binary:Version}),
+    xserver-xorg-video-nvidia-610 (= ${binary:Version}),
+    nvidia-vdpau-driver-610 (= ${binary:Version}),
+    nvidia-alternative-610 (= ${binary:Version}),
+    nvidia-open-kernel-module-610 (= ${binary:Version}),
+    nvidia-kernel-module-610 (= ${binary:Version}),
+    libgles-nvidia1-610 (= ${binary:Version}),
+    libgles-nvidia2-610 (= ${binary:Version}),
+    libnvidia-cfg1-610 (= ${binary:Version}),
+    libnvidia-encode1-610 (= ${binary:Version}),
+    nvidia-vulkan-icd-610 (= ${binary:Version}),
+    libnvidia-allocator1-610 (= ${binary:Version}),
+    libnvidia-rtcore-610 (= ${binary:Version}),
+    nvidia-smi-610 (= ${binary:Version}),
+    libcudadebugger1-610 (= ${binary:Version}),
+    libnvidia-fbc1-610 (= ${binary:Version}),
+    libnvoptix1-610 (= ${binary:Version}),
+    libnvidia-opticalflow1-610 (= ${binary:Version}),
+    libnvidia-present-610 (= ${binary:Version}) [amd64],
+    libnvidia-ngx1-610 (= ${binary:Version}) [amd64],
+    libnvidia-api1-610 (= ${binary:Version}),
+    nvidia-opencl-icd-610 (= ${binary:Version}),
+    nvidia-powerd-610 (= ${binary:Version}) [amd64],
+    nvidia-cuda-mps-610 (= ${binary:Version}),
+    nvidia-suspend-common-610 (= ${binary:Version}),
+    nvidia-persistenced-610 (= ${binary:Version}),
+    nvidia-settings-610 (= ${binary:Version}),
+    nvidia-modprobe-610 (= ${binary:Version}),
+    nvidia-xconfig-610 (= ${binary:Version}),
+    nvidia-support-610 (= ${binary:Version}),
+    libnvidia-egl-wayland1,
+    libnvidia-egl-gbm1,
+# Note: Not Upstream
+    libnvidia-vksc-core-610 (= ${binary:Version}),
+# End of Note
+    ${misc:Depends}
+Recommends:
+    nvidia-vaapi-driver,
+Suggests:
+    nvidia-kernel-source-610,
+    nvidia-open-kernel-source-610,
+Provides:
+    nvidia-driver (= ${binary:Version}),
+    nvidia-driver-full (= ${binary:Version}),
+    nvidia-driver-610 (= ${binary:Version}),
+    nvidia-open-driver (= ${binary:Version}),
+    nvidia-open-driver-full (= ${binary:Version}),
+    nvidia-driver-any,
+    nvidia-glx-any,
+Conflicts:
+    nvidia-driver,
+    nvidia-driver-610,
+    nvidia-closed-driver,
+    nvidia-closed-driver-610,
+Description: NVIDIA 610.57.04 metapackage (With open kernel modules)
+    This metapackage depends on the NVIDIA binary driver and libraries
+    that provide optimized hardware acceleration of
+    OpenGL/GLX/EGL/GLES/Vulkan applications via a direct-rendering X Server.
+
+Package: nvidia-driver-bin-610
+Section: non-free/x11
+Architecture: amd64 arm64 ppc64el
+Depends:
+    nvidia-alternative-610 (= ${binary:Version}),
+    ${shlibs:Depends}, ${misc:Depends}
+Recommends:
+    nvidia-driver-610,
+Provides:
+    nvidia-driver-bin (= ${binary:Version}),
+Conflicts:
+    nvidia-driver-bin ,
+Description: NVIDIA driver support binaries
+    The NVIDIA binary driver provides optimized hardware acceleration of OpenGL/GLX/EGL/GLES applications via a direct-rendering X Server for graphics cards using NVIDIA chip sets.
+    This package contains supporting binaries for the driver.
+
+Package: nvidia-driver-libs-610
+Architecture: i386 amd64 arm64 ppc64el
+Multi-Arch: same
+Depends:
+    libgl1-nvidia-glvnd-glx (= ${binary:Version}),
+    nvidia-egl-icd (= ${binary:Version}),
+    nvidia-alternative-610 (= ${binary:Version}),
+    libgl1-nvidia-glvnd-glx-610 (= ${binary:Version}),
+    libopengl0 | libopengl0-glvnd-nvidia-610,
+    libglx-nvidia0-610 (= ${binary:Version}),
+    libgles-nvidia1-610 (= ${binary:Version}),
+    libgles-nvidia2-610 (= ${binary:Version}),
+    libnvidia-cfg1-610 (= ${binary:Version}) [amd64],
+    libnvidia-encode1-610 (= ${binary:Version}),
+    nvidia-vulkan-icd-610 (= ${binary:Version}),
+    libnvidia-allocator1-610 (= ${binary:Version}),
+    ${misc:Depends},
+Provides:
+    nvidia-driver-libs (= ${binary:Version}),
+    nvidia-driver-libs-any,
+Conflicts:
+    nvidia-driver-libs,
+    libglvnd0-nvidia,
+    libopengl0-glvnd-nvidia,
+    libglx0-glvnd-nvidia,
+    libgl1-glvnd-nvidia-glx,
+    libegl1-glvnd-nvidia,
+    libgles1-glvnd-nvidia,
+    libgles2-glvnd-nvidia,
+Breaks:
+    nvidia-driver-libs-nonglvnd,
+    libgl1-nvidia-glx,
+    libegl1-nvidia,
+    nvidia-nonglvnd-vulkan-icd,
+Description: NVIDIA metapackage (OpenGL/GLX/EGL/GLES libraries)
+    This metapackage depends on the NVIDIA binary libraries
+    that provide optimized hardware acceleration of
+    OpenGL/GLX/EGL/GLES applications via a direct-rendering X Server.
+
+Package: nvidia-egl-common-610
+Architecture: i386 amd64 arm64 ppc64el armhf
+Multi-Arch: foreign
+Depends:
+    ${misc:Depends}
+    nvidia-alternative-610 (= ${binary:Version}),
+Provides:
+    nvidia-egl-common (= ${binary:Version}),
+Conflicts:
+    nvidia-egl-common
+Suggests:
+    libegl-nvidia0
+Description: NVIDIA binary EGL driver - common files
+    EGL provides a platform-agnostic mechanism for creating rendering surfaces
+    for use with other graphics libraries, such as OpenGL|ES.
+    .
+    This package provides the common files for the NVIDIA installable client
+    driver (ICD) for EGL via GLVND.
+
+Package: nvidia-egl-icd-610
+Architecture: i386 amd64 arm64 ppc64el
+Multi-Arch: same
+Depends:
+    nvidia-egl-common-610 (= ${binary:Version}),
+    nvidia-alternative-610 (= ${binary:Version}),
+    libegl1 (>= 0.2.999) | libegl1-glvnd-nvidia,
+    libegl-nvidia0-610 (= ${binary:Version}),
+    ${misc:Depends}
+Enhances:
+    libegl1,
+Provides:
+    libegl-vendor,
+    egl-icd,
+    nvidia-egl-icd (= ${binary:Version}),
+Conflicts:
+    nvidia-egl-icd
+Description: NVIDIA EGL installable client driver (ICD)
+    EGL provides a platform-agnostic mechanism for creating rendering surfaces
+    for use with other graphics libraries, such as OpenGL|ES.
+    .
+    This metapackage provides the NVIDIA installable client driver (ICD) for
+    EGL via GLVND which supports NVIDIA GPUs.
+
+Package: nvidia-kernel-common-610
+Section: contrib/kernel
+Architecture: amd64 i386 armhf arm64 ppc64el
+Pre-Depends: ${misc:Pre-Depends}
+Depends:
+    nvidia-alternative-610 (= ${binary:Version}),
+    ${misc:Depends}
+Provides:
+    nvidia-kernel-common (= ${binary:Version}),
+    nvidia-closed-kernel-common (= ${binary:Version}),
+    nvidia-closed-kernel-common-610 (= ${binary:Version}),
+Conflicts:
+    nvidia-kernel-common,
+    nvidia-open-kernel-common,
+    nvidia-open-kernel-common-610,
+Description: NVIDIA binary kernel module support files
+    This package contains support files used for any version of the NVIDIA
+    kernel module. It sets up udev and ConsoleKit rules, ensures the NVIDIA
+    control device is created, and performs any other tasks required for the
+    module to work properly.
+
+Package: nvidia-open-kernel-common-610
+Section: contrib/kernel
+Architecture: amd64 i386 armhf arm64 ppc64el
+Pre-Depends: ${misc:Pre-Depends}
+Depends:
+    nvidia-alternative-610 (= ${binary:Version}),
+    ${misc:Depends}
+Provides:
+    nvidia-kernel-common (= ${binary:Version}),
+    nvidia-kernel-common-610 (= ${binary:Version}),
+    nvidia-open-kernel-common (= ${binary:Version}),
+    nvidia-open-kernel-common-610 (= ${binary:Version}),
+Conflicts:
+    nvidia-kernel-common,
+    nvidia-kernel-common-610,
+    nvidia-closed-kernel-common,
+    nvidia-closed-kernel-common-610,
+Description: NVIDIA binary kernel module support files (Open)
+    This package contains support files used for any version of the NVIDIA
+    kernel module. It sets up udev and ConsoleKit rules, ensures the NVIDIA
+    control device is created, and performs any other tasks required for the
+    module to work properly.
+
+Package: nvidia-kernel-dkms-610
+Section: non-free/kernel
+Architecture: amd64 arm64 ppc64el
+Depends:
+    firmware-nvidia-gsp-610 (= ${binary:Version}),
+    nvidia-closed-kernel-source-610  (= ${binary:Version}),
+    nvidia-kernel-source-610  (= ${binary:Version}),
+    nvidia-closed-kernel-support-610 (= ${binary:Version}),
+    nvidia-kernel-support-610 (= ${binary:Version}),
+    nvidia-kernel-common-610 (= ${binary:Version}),
+    nvidia-closed-kernel-common-610 (= ${binary:Version}),
+    nvidia-alternative-610 (= ${binary:Version}),
+    dkms,
+    ${misc:Depends}
+Recommends:
+    nvidia-driver-610 (= ${binary:Version}),
+Provides:
+    nvidia-closed-kernel-module-610 (= ${binary:Version}),
+    nvidia-kernel-module-610 (= ${binary:Version}),
+    nvidia-closed-kernel-module (= ${binary:Version}),
+    nvidia-kernel-module (= ${binary:Version}),
+    nvidia-kernel-dkms (= ${binary:Version}),
+    nvidia-kernel-dkms-closed (= ${binary:Version}),
+    nvidia-kernel-dkms-any (= ${binary:Version}),
+Conflicts:
+    nvidia-kernel-dkms,
+    nvidia-open-kernel-dkms,
+    nvidia-open-kernel-dkms-610,
+Description: NVIDIA binary kernel DKMS module
+    This package provides the DKMS build configuration for the source for the NVIDIA binary kernel modules
+    needed by nvidia-driver.
+
+Package: nvidia-open-kernel-dkms-610
+Section: non-free/kernel
+Architecture: amd64 arm64 ppc64el
+Depends:
+    firmware-nvidia-gsp-610 (= ${binary:Version}),
+    nvidia-open-kernel-source-610  (= ${binary:Version}),
+    nvidia-kernel-source-610  (= ${binary:Version}),
+    nvidia-open-kernel-support-610 (= ${binary:Version}),
+    nvidia-kernel-support-610 (= ${binary:Version}),
+    nvidia-kernel-common-610 (= ${binary:Version}),
+    nvidia-open-kernel-common-610 (= ${binary:Version}),
+    nvidia-alternative-610 (= ${binary:Version}),
+    dkms,
+    ${misc:Depends}
+Recommends:
+    nvidia-driver-610 (= ${binary:Version}),
+Provides:
+    nvidia-open-kernel-module-610 (= ${binary:Version}),
+    nvidia-kernel-module-610 (= ${binary:Version}),
+    nvidia-open-kernel-module (= ${binary:Version}),
+    nvidia-kernel-module (= ${binary:Version}),
+    nvidia-kernel-dkms (= ${binary:Version}),
+    nvidia-kernel-dkms-610 (= ${binary:Version}),
+    nvidia-kernel-dkms-open (= ${binary:Version}),
+    nvidia-kernel-dkms-any (= ${binary:Version}),
+Conflicts:
+    nvidia-kernel-dkms,
+    nvidia-kernel-dkms-610,
+    nvidia-closed-kernel-dkms,
+    nvidia-closed-kernel-dkms-610,
+Description: NVIDIA binary kernel DKMS module (Open)
+    This package provides the DKMS build configuration for the source for the NVIDIA binary kernel modules
+    needed by nvidia-driver.    
+    
+Package: nvidia-kernel-source-610
+Section: non-free/kernel
+Architecture: amd64 arm64 ppc64el
+Depends:
+    debhelper-compat (= 13),
+    nvidia-alternative-610 (= ${binary:Version}),
+    module-assistant,
+    ${misc:Depends}
+Recommends:
+    firmware-nvidia-gsp-610 (= ${binary:Version}),
+Suggests:
+    nvidia-driver-610 (= ${binary:Version}),
+Provides:
+    nvidia-kernel-source (= ${binary:Version}),
+    nvidia-closed-kernel-source (= ${binary:Version}),
+    nvidia-closed-kernel-source-610 (= ${binary:Version}),
+Conflicts:
+    nvidia-kernel-source,
+    nvidia-open-kernel-source-610,
+    nvidia-open-kernel-source,
+Description: NVIDIA binary kernel module source
+    This package provides the source for the NVIDIA binary kernel modules
+    needed by nvidia-driver in a form suitable
+    for use by module-assistant.
+    .
+    The NVIDIA binary driver provides optimized hardware acceleration of
+    OpenGL/GLX/EGL/GLES applications via a direct-rendering X Server
+    for graphics cards using NVIDIA chip sets.
+    .
+    PLEASE read /usr/share/doc/nvidia-kernel-source/README.Debian.gz
+    for building information. If you want the kernel module to be automatically
+    installed via DKMS, install nvidia-kernel-dkms-610 instead.
+
+Package: nvidia-open-kernel-source-610
+Section: non-free/kernel
+Architecture: amd64 arm64 ppc64el
+Depends:
+    debhelper-compat (= 13),
+    nvidia-alternative-610 (= ${binary:Version}),
+    module-assistant,
+    ${misc:Depends}
+Recommends:
+    firmware-nvidia-gsp-610 (= ${binary:Version}),
+Suggests:
+    nvidia-open-driver-610 (= ${binary:Version}),
+Provides:
+    nvidia-open-kernel-source (= ${binary:Version}),
+    nvidia-open-kernel-source-610 (= ${binary:Version}),
+    nvidia-kernel-source (= ${binary:Version}),
+    nvidia-kernel-source-610 (= ${binary:Version}),
+Conflicts:
+    nvidia-kernel-source,
+    nvidia-kernel-source-610,
+    nvidia-closed-kernel-source,
+    nvidia-closed-kernel-source-610,
+Description: NVIDIA binary kernel module source (Open)
+    This package provides the source for the NVIDIA binary kernel modules
+    needed by nvidia-driver in a form suitable
+    for use by module-assistant.
+    .
+    The NVIDIA binary driver provides optimized hardware acceleration of
+    OpenGL/GLX/EGL/GLES applications via a direct-rendering X Server
+    for graphics cards using NVIDIA chip sets.
+    .
+    PLEASE read /usr/share/doc/nvidia-kernel-source/README.Debian.gz
+    for building information. If you want the kernel module to be automatically
+    installed via DKMS, install nvidia-open-kernel-dkms-610 instead.    
+
+Package: nvidia-kernel-support-610
+Section: non-free/kernel
+Architecture: amd64 arm64 ppc64el
+Multi-Arch: foreign
+Depends:
+    nvidia-alternative-610 (= ${binary:Version}),
+    nvidia-kernel-common-610 (= ${binary:Version}),
+    nvidia-modprobe-610 (= ${binary:Version}),
+    ${misc:Depends}
+Provides:
+    nvidia-kernel-support-any,
+    nvidia-kernel-support--v1,
+    nvidia-kernel-support (= ${binary:Version}),
+    nvidia-closed-kernel-support (= ${binary:Version}),
+    nvidia-closed-kernel-support-610 (= ${binary:Version}),
+    nvidia-open-kernel-support (= ${binary:Version}),
+    nvidia-open-kernel-support-610 (= ${binary:Version}),
+Conflicts:
+    nvidia-kernel-support,
+    nvidia-open-kernel-support,
+    nvidia-open-kernel-support-610,
+Description: NVIDIA binary kernel module support files
+    The NVIDIA binary driver provides optimized hardware acceleration of
+    OpenGL/GLX/EGL/GLES applications via a direct-rendering X Server
+    for graphics cards using NVIDIA chip sets.
+    .
+    This package provides supporting configuration for the kernel module.
+
+Package: nvidia-libopencl1-610
+Architecture: i386 amd64 arm64 ppc64el
+Multi-Arch: same
+Pre-Depends:
+    ${misc:Pre-Depends}
+Depends:
+    nvidia-alternative-610 (= ${binary:Version}),
+    ${shlibs:Depends}, ${misc:Depends}
+Recommends:
+    nvidia-opencl-icd-610 (= ${binary:Version}) | opencl-icd,
+Provides:
+    libopencl1,
+    libopencl-1.1-1,
+    libopencl-1.2-1,
+    libopencl-2.0-1,
+    libopencl-2.1-1,
+    libopencl-2.2-1,
+    libopencl-3.0-1,
+    nvidia-libopencl1 (= ${binary:Version}),
+Conflicts:
+    libopencl1,
+    nvidia-libopencl1,
+Replaces:
+    libopencl1,
+Description: NVIDIA OpenCL ICD Loader library
+    OpenCL (Open Computing Language) is a multivendor open standard for
+    general-purpose parallel programming of heterogeneous systems that include
+    CPUs, GPUs and other processors.
+    .
+    The OpenCL installable client driver loader (ICD Loader) acts as a dispatcher
+    between an OpenCL application and one (or more) installable client drivers
+    (ICD) that can be from any vendor. At least one ICD (and the corresponding
+    hardware) is required to run OpenCL applications.
+    .
+    This package contains the ICD Loader library provided by NVIDIA.
+
+Package: nvidia-modprobe-610
+Architecture: amd64 arm64 ppc64el
+Multi-Arch: foreign
+Depends:
+    nvidia-alternative-610 (= ${binary:Version}),
+    ${shlibs:Depends}, ${misc:Depends}
+Provides: nvidia-modprobe (= ${binary:Version})
+Conflicts: nvidia-modprobe
+Description: utility to load NVIDIA kernel modules and create device nodes
+     This setuid program is used to create NVIDIA Linux device files and load the
+     NVIDIA kernel module, on behalf of NVIDIA Linux driver components which may
+     not have sufficient privileges to perform these actions on their own.
+
+Package: nvidia-opencl-common-610
+Architecture: i386 amd64 arm64 ppc64el
+Multi-Arch: foreign
+Depends:
+    nvidia-alternative-610 (= ${binary:Version}),
+    ${misc:Depends}
+Provides:
+    nvidia-opencl-common (= ${binary:Version}),
+Conflicts:
+    nvidia-opencl-common
+Suggests:
+    nvidia-opencl-icd-610 (= ${binary:Version})
+Description: NVIDIA OpenCL driver - common files
+    OpenCL (Open Computing Language) is a multivendor open standard for
+    general-purpose parallel programming of heterogeneous systems that include
+    CPUs, GPUs and other processors.
+    .
+    This package provides the common files for the NVIDIA installable client
+    driver (ICD) for OpenCL.
+
+Package: nvidia-opencl-icd-610
+Architecture: i386 amd64 arm64 ppc64el
+Multi-Arch: same
+Pre-Depends:
+    ${misc:Pre-Depends}
+Depends:
+    nvidia-opencl-common-610 (= ${binary:Version}),
+    ocl-icd-libopencl1 | nvidia-libopencl1-610 (= ${binary:Version}) | libopencl1,
+    nvidia-alternative-610 (= ${binary:Version}),
+    libcuda1-610 (= ${binary:Version}),
+    libnvidia-nvvm4-610 (= ${binary:Version}),
+    libnvidia-nvvm70-610 (= ${binary:Version}) [amd64],
+    ${shlibs:Depends}, ${misc:Depends}
+Enhances:
+    libopencl1,
+Provides:
+    opencl-icd,
+    nvidia-opencl-icd (= ${binary:Version})
+Conflicts:
+    nvidia-opencl-icd
+Description: NVIDIA OpenCL installable client driver (ICD)
+    OpenCL (Open Computing Language) is a multivendor open standard for
+    general-purpose parallel programming of heterogeneous systems that include
+    CPUs, GPUs and other processors.
+    .
+    This package provides the NVIDIA installable client driver (ICD) for OpenCL
+    which supports NVIDIA GPUs.
+
+Package: nvidia-persistenced-610
+Architecture: amd64 arm64 ppc64el
+Multi-Arch: foreign
+Pre-Depends:
+     ${misc:Pre-Depends}
+Depends:
+    nvidia-alternative-610 (= ${binary:Version}),
+    libnvidia-cfg1-610 (= ${binary:Version}) [!i386 !armhf],
+    adduser,
+    ${shlibs:Depends},
+    ${misc:Depends}
+Provides:
+    nvidia-persistenced (= ${binary:Version}),
+Conflicts:
+    nvidia-persistenced
+Description: daemon to maintain persistent software state in the NVIDIA driver
+     When persistence mode is enabled, the daemon prevents the driver from
+     releasing device state when the device is not in use.
+     This can improve the startup time of new clients in this scenario.
+
+Package: nvidia-powerd-610
+Section: non-free/utils
+Architecture: amd64
+Depends:
+    nvidia-alternative-610 (= ${binary:Version}),
+    ${shlibs:Depends}, ${misc:Depends}
+Provides:
+    nvidia-powerd (= ${binary:Version}),
+Conflicts:
+    nvidia-powerd
+Description: NVIDIA Dynamic Boost (daemon)
+    The 'nvidia-powerd' daemon provides support for the NVIDIA Dynamic Boost
+    feature on Linux platforms. Dynamic Boost is a system-wide power controller
+    which manages GPU and CPU power, according to the workload on the system. By
+    shifting power between the GPU and the CPU, Dynamic Boost can deliver more
+    power to the component that would benefit most from it, without impacting the
+    system's total thermal and electrical budgets. This optimizes overall system
+    performance per watt.
+
+Package: nvidia-smi-610
+Section: non-free/utils
+Architecture: amd64 arm64 ppc64el
+Depends:
+    nvidia-alternative-610 (= ${binary:Version}),
+    libnvidia-ml1-610 (= ${binary:Version}),
+    ${shlibs:Depends}, ${misc:Depends}
+Recommends:
+    nvidia-kernel-module-610
+Provides:
+    nvidia-smi (= ${binary:Version}),
+Conflicts:
+    nvidia-smi
+Suggests:
+    nvidia-kernel-source-610
+Description: NVIDIA System Management Interface
+    The NVIDIA Management Library (NVML) provides a monitoring and management API.
+    The application "nvidia-smi" is the NVIDIA System Management Interface (NVSMI)
+    and provides a command line interface to this functionality.
+    .
+    See the output from the --help command line option for supported models and
+    further information.
+
+Package: nvidia-suspend-common-610
+Section: non-free/x11
+Architecture: amd64 arm64 ppc64el
+Multi-Arch: foreign
+Depends:
+    kbd,
+    nvidia-alternative-610 (= ${binary:Version}),
+    ${misc:Depends}
+Provides:
+    nvidia-suspend-common (= ${binary:Version}),
+Conflicts:
+    nvidia-suspend-common
+Description: NVIDIA driver - systemd power management scripts
+    This package provides the common files for the NVIDIA power management
+    integration with systemd.
+
+Package: nvidia-settings-610
+Architecture: amd64 arm64 ppc64el
+Depends:    
+    nvidia-alternative-610 (= ${binary:Version}),
+    ${shlibs:Depends}, ${misc:Depends}
+Recommends: 
+    nvidia-vdpau-driver-610,
+    libnvidia-ml1-610
+Provides: nvidia-settings-gtk-610.57.04, nvidia-settings (= ${binary:Version}),
+Conflicts: nvidia-settings-gtk-610.57.04, nvidia-settings 
+Description: tool for configuring the NVIDIA graphics driver
+     The nvidia-settings utility is a tool for configuring the NVIDIA
+     Linux graphics driver.  It operates by communicating with the NVIDIA
+     X driver, querying and updating state as appropriate.  This
+     communication is done with the NV-CONTROL X extension.
+     .
+     Values such as brightness and gamma, XVideo attributes, temperature,
+     and OpenGL settings can be queried and configured via nvidia-settings.
+
+Package: nvidia-support-610
+Architecture: amd64 i386 armhf arm64 ppc64el
+Multi-Arch: foreign
+Depends: 
+    ${misc:Depends}
+Provides: nvidia-support (= ${binary:Version}), nvidia-installer-cleanup (= ${binary:Version})
+Conflicts: nvidia-support, nvidia-installer-cleanup
+Description: NVIDIA binary graphics driver support files
+    This package contains support files needed for all current and legacy
+    versions of the non-free NVIDIA graphics drivers. These include scripts
+    used for warning about a mismatching version of the kernel module.
+
+Package: nvidia-vdpau-driver-610
+Section: non-free/video
+Architecture: i386 amd64 arm64 ppc64el
+Multi-Arch: same
+Pre-Depends:
+    ${misc:Pre-Depends}
+Depends:
+    libvdpau1 (>= 0.9),
+    nvidia-alternative-610 (= ${binary:Version}),
+    ${shlibs:Depends}, ${misc:Depends}
+Recommends:
+    nvidia-kernel-module-610 (= ${binary:Version}),
+Suggests:
+    nvidia-kernel-common-610 (= ${binary:Version}),
+Enhances:
+    libvdpau1,
+Provides:
+    vdpau-driver,
+    nvidia-vdpau-driver (= ${binary:Version}),
+Conflicts:
+    nvidia-vdpau-driver
+Description: Video Decode and Presentation API for Unix - NVIDIA driver
+
+Package: nvidia-vulkan-common-610
+Architecture: i386 amd64 arm64 ppc64el
+Multi-Arch: foreign
+Depends:
+    nvidia-alternative-610 (= ${binary:Version}),
+    ${misc:Depends}
+Suggests:
+    nvidia-vulkan-icd-610
+Provides:
+    nvidia-vulkan-common (= ${binary:Version}),
+Conflicts:
+    libgl1-nvidia-glx,
+    libgl1-nvidia-tesla-418-glx,
+    libgl1-nvidia-legacy-390xx-glx,
+    nvidia-nonglvnd-vulkan-common,
+    nvidia-vulkan-common
+Description: NVIDIA Vulkan driver - common files
+    Vulkan is a multivendor open standard by the Khronos Group for 3D graphics.
+    .
+    This package provides the common files for the NVIDIA installable client
+    driver (ICD) for Vulkan (GLVND variant).
+
+Package: nvidia-vulkan-icd-610
+Architecture: i386 amd64 arm64 ppc64el
+Multi-Arch: same
+Depends:
+    nvidia-vulkan-common-610,
+    libvulkan1 (>= 1.0.42),
+    libglx-nvidia0-610 (= ${binary:Version}),
+    ${misc:Depends}
+Recommends:
+    libnvidia-rtcore-610 (= ${binary:Version}) [!i386 !ppc64el],
+Suggests:
+    vulkan-tools,
+Enhances:
+    libvulkan1,
+Provides:
+    vulkan-icd,
+    nvidia-vulkan-icd-any,
+    nvidia-vulkan-icd (= ${binary:Version}),
+Conflicts:
+    nvidia-nonglvnd-vulkan-icd,
+    nvidia-vulkan-icd
+Description: NVIDIA Vulkan installable client driver (ICD)
+    Vulkan is a multivendor open standard by the Khronos Group for 3D graphics.
+    .
+    This metapackage provides the NVIDIA installable client driver (ICD) for
+    Vulkan (GLVND variant) which supports NVIDIA GPUs.
+
+Package: nvidia-xconfig-610
+Architecture: amd64
+Pre-Depends: nvidia-support-610 (= ${binary:Version})
+Depends:
+     ${shlibs:Depends},
+     ${misc:Depends}
+Recommends: nvidia-driver-610 (= ${binary:Version})
+Provides: nvidia-xconfig (= ${binary:Version})
+Conflicts:  nvidia-xconfig
+Description: deprecated X configuration tool for non-free NVIDIA drivers
+     This tool is deprecated. The NVIDIA drivers now automatically integrate with
+     the Xorg Xserver configuration. Creating an xorg.conf is no longer needed for
+     normal setups.
+     .
+     The nvidia-xconfig program helps with manipulation of X configuration
+     files, primarily for systems that use the non-free drivers provided by
+     NVIDIA.  It automatically changes the configuration to use the NVIDIA
+     driver and can add additional options given on the command line.
+
+Package: xserver-xorg-video-nvidia-610
+Section: non-free/x11
+Architecture: amd64 arm64 ppc64el
+Pre-Depends:
+    ${misc:Pre-Depends}
+Depends:
+    nvidia-alternative-610 (= ${binary:Version}),
+    nvidia-support-610 (= ${binary:Version}),
+    xserver-xorg-core,
+    ${shlibs:Depends}, ${misc:Depends}
+Recommends:
+    nvidia-driver-610 (= ${binary:Version}),
+    nvidia-vdpau-driver-610 (= ${binary:Version}),
+    nvidia-vulkan-icd-610 (= ${binary:Version}),
+    nvidia-kernel-module-610 (= ${binary:Version}),
+    nvidia-suspend-common-610 (= ${binary:Version}),
+    nvidia-persistenced-610 (= ${binary:Version}),
+    nvidia-settings-610 (= ${binary:Version}),
+Suggests:
+    nvidia-kernel-common-610 (= ${binary:Version}),
+Provides:
+    xserver-xorg-video-nvidia-any,
+    xserver-xorg-video-nvidia (= ${binary:Version}),
+Conflicts:
+    xserver-xorg-video-nvidia
+Description: NVIDIA binary Xorg driver

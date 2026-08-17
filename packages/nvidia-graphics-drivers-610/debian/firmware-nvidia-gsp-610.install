@@ -1,0 +1,4 @@
+firmware/gsp*.bin	lib/firmware/nvidia/610.57.04/
+firmware/ucodes_ga10x.bin	lib/firmware/nvidia/610.57.04/
+firmware/ucodes_tu10x.bin	lib/firmware/nvidia/610.57.04/
+#RIM_GH100PROD.swidtag	usr/share/nvidia/rim/610.57.04/

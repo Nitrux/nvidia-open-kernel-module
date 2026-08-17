@@ -1,0 +1,3 @@
+extra_files/nvidia-persistenced-init/sysv/nvidia-persistenced   /etc/init.d/
+extra_files/nvidia-persistenced-init/systemd/nvidia-persistenced.service /usr/lib/systemd/system/
+nvidia-persistenced     /usr/bin/

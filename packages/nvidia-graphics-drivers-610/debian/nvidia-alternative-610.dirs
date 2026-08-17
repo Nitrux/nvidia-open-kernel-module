@@ -1,0 +1,11 @@
+#! /usr/bin/dh-exec
+etc/modprobe.d
+etc/nvidia
+usr/lib/nvidia/610.57.04
+usr/lib/nvidia/610.57.04-open
+usr/lib/${DEB_HOST_MULTIARCH}/gbm
+usr/lib/${DEB_HOST_MULTIARCH}/nvidia
+usr/lib/${DEB_HOST_MULTIARCH}/vdpau
+usr/share/applications
+usr/share/man/man1
+usr/share/nvidia

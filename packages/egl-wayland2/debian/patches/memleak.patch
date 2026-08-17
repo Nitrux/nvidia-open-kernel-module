@@ -1,0 +1,53 @@
+From 6b99685efdf60ba3eee2c14f9e69add8f3b74636 Mon Sep 17 00:00:00 2001
+From: ferreo <harderthanfire@gmail.com>
+Date: Wed, 8 Jul 2026 20:32:58 +0100
+Subject: [PATCH] fix: attach acquire fence after frame wait
+
+Create and attach the explicit-sync acquire fence only after
+WaitForPreviousFrames returns, immediately before set_acquire/set_release.
+Previously SyncRendering could attach a timeline point and then block for
+a long time before publishing it to the compositor, which extended fence
+lifetime across that wait.
+
+---
+ src/wayland/wayland-surface.c | 17 ++++++++++++-----
+ 1 file changed, 12 insertions(+), 5 deletions(-)
+
+diff --git a/src/wayland/wayland-surface.c b/src/wayland/wayland-surface.c
+index a1b52d4..18775e2 100644
+--- a/src/wayland/wayland-surface.c
++++ b/src/wayland/wayland-surface.c
+@@ -1368,11 +1368,13 @@ EGLBoolean eplWlSwapBuffers(EplPlatformData *plat, EplDisplay *pdpy,
+         present_buf = psurf->priv->current.swapchain->current_back;
+     }
+
+-    if (!SyncRendering(psurf, present_buf))
+-    {
+-        goto done;
+-    }
+-
++    /*
++     * Wait for previous frames (and prepare damage) before SyncRendering.
++     * SyncRendering attaches an acquire fence to the next timeline point; if
++     * we did that first and then blocked in WaitForPreviousFrames, the point
++     * would exist for a long time before set_acquire/set_release reached the
++     * compositor. Create the fence only when we are about to publish it.
++     */
+     if (swap_interval > 0)
+     {
+         if (!WaitForPreviousFrames(psurf))
+@@ -1422,6 +1424,11 @@ EGLBoolean eplWlSwapBuffers(EplPlatformData *plat, EplDisplay *pdpy,
+         wl_surface_damage(psurf->priv->current.wsurf, 0, 0, INT_MAX, INT_MAX);
+     }
+
++    if (!SyncRendering(psurf, present_buf))
++    {
++        goto done;
++    }
++
+     if (psurf->priv->current.syncobj != NULL)
+     {
+         assert(present_buf->timeline.wtimeline != NULL);
+--
+2.51.0
+

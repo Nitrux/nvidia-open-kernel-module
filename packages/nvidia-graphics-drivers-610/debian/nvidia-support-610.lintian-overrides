@@ -1,0 +1,21 @@
+# The check for mismatching nvidia kernel module version has been moved to a
+# script that is called from several postinst scripts only.
+debconf-is-not-a-registry [usr/lib/nvidia/check-for-mismatching-nvidia-module:6]
+executable-in-usr-lib [usr/lib/nvidia/check-for-mismatching-nvidia-module]
+unused-debconf-template nvidia-support/check-running-module-version [templates:*]
+unused-debconf-template nvidia-support/last-mismatching-module-version [templates:*]
+unused-debconf-template nvidia-support/warn-mismatching-module-version [templates:*]
+unused-debconf-template nvidia-support/warn-nouveau-module-loaded [templates:*]
+
+# The notes about needing a xorg.conf or leftover xorg.conf are displayed by
+# xserver-xorg-video-nvidia.
+unused-debconf-template nvidia-support/needs-xorg-conf-to-enable [templates:*]
+unused-debconf-template nvidia-support/check-xorg-conf-on-removal [templates:*]
+unused-debconf-template nvidia-support/removed-but-enabled-in-xorg-conf [templates:*]
+
+# The script is shipped by several driver packages depending on us.
+spare-manual-page [usr/share/man/man1/nvidia-bug-report.sh.1.gz]
+
+# We do not build arch:all packages for the proprietary driver.
+package-contains-no-arch-dependent-files
+

@@ -1,0 +1,9 @@
+cache/
+output/
+work/
+*.deb
+*.buildinfo
+*.changes
+*.dsc
+*.tar.*
+*.log

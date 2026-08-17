@@ -1,0 +1,7 @@
+#! /usr/bin/dh-exec
+nvidia-bug-report.sh	usr/lib/${DEB_HOST_MULTIARCH}/nvidia/current/
+nvidia-debugdump	usr/lib/${DEB_HOST_MULTIARCH}/nvidia/current/
+nvidia-application-profiles-610.57.04-rc	usr/share/nvidia/
+nvidia-application-profiles-610.57.04-key-documentation	usr/share/nvidia/
+dlsnetparams.csv	usr/share/nvidia/
+sandboxutils-filelist.json  usr/share/nvidia/files.d/

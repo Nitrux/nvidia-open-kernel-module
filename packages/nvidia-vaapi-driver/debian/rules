@@ -1,0 +1,10 @@
+#!/usr/bin/make -f
+%:
+	dh $@
+	
+override_dh_install:
+	dh_install
+	mkdir -p debian/nvidia-vaapi-driver/etc/profile.d
+	cp debian/env-scripts/nvidia-vaapi-env.sh debian/nvidia-vaapi-driver/etc/profile.d/
+	mkdir -p debian/nvidia-vaapi-driver/etc/X11/Xsession.d/
+	cp debian/env-scripts/20-nvd-moz debian/nvidia-vaapi-driver/etc/X11/Xsession.d/

@@ -1,0 +1,2 @@
+# Enable X11 EGL in firefox in order for it to use nvidia-vaapi-driver
+export MOZ_X11_EGL=1

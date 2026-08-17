@@ -1,0 +1,46 @@
+Source: egl-wayland2
+Priority: optional
+Maintainer: Timo Aaltonen <tjaalton@debian.org>
+Build-Depends:
+ debhelper-compat (= 12),
+ eglexternalplatform-dev,
+ libdrm-dev,
+ libegl1-mesa-dev,
+ libwayland-dev,
+ libgbm-dev,
+ libnvidia-egl-gbm1,
+ libwayland-egl-backend-dev,
+ meson,
+ pkg-config,
+ wayland-protocols,
+Standards-Version: 4.5.0
+Section: libs
+Homepage: https://github.com/NVIDIA/egl-wayland2
+Vcs-Git: https://salsa.debian.org/debian/egl-wayland2.git
+Vcs-Browser: https://salsa.debian.org/debian/egl-wayland2.git
+
+Package: libnvidia-egl-wayland2-dev
+Section: libdevel
+Architecture: any
+Multi-Arch: same
+Depends: libnvidia-egl-wayland2 (= ${binary:Version}),
+ ${misc:Depends}
+Description: The development files for Dma-buf-based Wayland external platform library.
+
+Package: libnvidia-egl-wayland2
+Architecture: any
+Multi-Arch: same
+Depends: ${shlibs:Depends}, ${misc:Depends}, libnvidia-egl-gbm1
+Conflicts:
+ libnvidia-gl-390,
+ libnvidia-gl-410 (<< 410.93),
+ libnvidia-legacy-390xx-egl-wayland1,
+ nvidia-egl-wayland-common,
+Replaces:
+ libnvidia-gl-390,
+ libnvidia-gl-410 (<< 410.93),
+ libnvidia-legacy-390xx-egl-wayland1,
+ nvidia-egl-wayland-common,
+Recommends:
+  libnvidia-egl-wayland1
+Description: Dma-buf-based Wayland external platform library.

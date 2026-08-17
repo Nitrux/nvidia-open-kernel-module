@@ -1,0 +1,2 @@
+nvidia-modprobe     /usr/bin/
+extra_files/nvidia-create-device-nodes /usr/bin/

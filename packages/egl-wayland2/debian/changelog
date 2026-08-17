@@ -1,0 +1,5 @@
+egl-wayland2 (1.0.2-git-101nitrux7) nitrux; urgency=medium
+
+  * Import package metadata for the Nitrux NVIDIA package set.
+
+ -- Nitrux Latinoamericana S.C. <hello@nxos.org>  Mon, 17 Aug 2026 00:00:00 -0600

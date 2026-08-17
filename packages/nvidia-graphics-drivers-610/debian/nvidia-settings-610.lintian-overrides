@@ -1,0 +1,8 @@
+# The shared libraries are actually version-specific plugins.
+package-name-doesnt-match-sonames
+exit-in-shared-library
+no-symbols-control-file
+
+# The current setup involving multiple chained alternatives would be very
+# hard to migrate to /usr/libexec.
+executable-in-usr-lib

@@ -1,0 +1,26 @@
+Source: nvidia-vaapi-driver
+Section: video
+Priority: optional
+Maintainer: Ward Nakchbandi <hotrod.master@hotmail.com>
+Build-Depends: debhelper-compat (= 13),
+               dh-sequence-libva,
+               libffmpeg-nvenc-dev (>= 11.1.5.1~),
+               libgstreamer-plugins-bad1.0-dev,
+               libdrm-dev,
+               meson (>= 0.58.0~),
+Standards-Version: 4.6.0
+Homepage: https://github.com/elFarto/nvidia-vaapi-driver
+Vcs-Browser: https://salsa.debian.org/Dami/nvidia-vaapi-driver
+Vcs-Git: https://salsa.debian.org/Dami/nvidia-vaapi-driver.git
+Rules-Requires-Root: no
+
+Package: nvidia-vaapi-driver
+Architecture: any
+Multi-Arch: same
+Depends: ${misc:Depends}, ${shlibs:Depends}, switcheroo-control [amd64]
+Suggests: libcuda1
+Description: VA-API implementation that uses NVDEC as a backend
+ nvidia-vaapi-driver is an VA-API(Video Acceleration API)
+ implementation that uses NVDEC as a backend. This implementation is
+ specifically designed to be used by Firefox for accelerated decode of
+ web content.

@@ -1,0 +1,3 @@
+#! /usr/bin/dh-exec
+usr/lib/${DEB_HOST_MULTIARCH}/nvidia/current/libglxserver_nvidia.so.610.57.04	usr/lib/${DEB_HOST_MULTIARCH}/nvidia/current/libglxserver_nvidia.so
+usr/lib/${DEB_HOST_MULTIARCH}/nvidia/current/nvidia_drv.so    usr/lib/nvidia/current/nvidia_drv.so

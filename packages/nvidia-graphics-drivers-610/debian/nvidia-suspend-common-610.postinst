@@ -1,0 +1,6 @@
+#!/bin/sh
+
+systemctl enable nvidia-hibernate || true
+systemctl enable nvidia-resume || true
+systemctl enable nvidia-suspend || true
+systemctl enable nvidia-suspend-then-hibernate || true

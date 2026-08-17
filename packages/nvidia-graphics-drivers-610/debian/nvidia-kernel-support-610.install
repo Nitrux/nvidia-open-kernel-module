@@ -1,0 +1,4 @@
+extra_files/nvidia-load.conf			etc/nvidia/current/
+extra_files/nvidia-modprobe.conf		etc/nvidia/current/
+extra_files/nvidia-options.conf		etc/nvidia/current/
+extra_files/nvidia-blacklists-nouveau.conf	etc/nvidia/current/

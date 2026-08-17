@@ -1,0 +1,2 @@
+extra_files/nvidia_helper.ck /usr/lib/ConsoleKit/run-seat.d/
+extra_files/nvidia_helper /usr/lib/udev/

@@ -1,0 +1,4 @@
+# Firmware blob.
+binary-from-other-architecture [lib/firmware/nvidia/610.57.04/gsp*.bin]
+spelling-error-in-binary * [lib/firmware/nvidia/610.57.04/gsp*.bin]
+unstripped-binary-or-object [lib/firmware/nvidia/610.57.04/gsp*.bin]

@@ -1,0 +1,5 @@
+# Hook location.
+executable-in-usr-lib [usr/lib/ConsoleKit/run-seat.d/nvidia_helper.ck]
+
+# We do not build arch:all packages for the proprietary driver.
+package-contains-no-arch-dependent-files

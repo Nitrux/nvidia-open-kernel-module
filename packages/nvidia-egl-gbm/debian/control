@@ -1,0 +1,28 @@
+Source: nvidia-egl-gbm
+Section: contrib/libs
+Priority: optional
+Maintainer: Debian NVIDIA Maintainers <pkg-nvidia-devel@lists.alioth.debian.org>
+Uploaders:
+ Andreas Beckmann <anbe@debian.org>,
+Build-Depends:
+ debhelper-compat (= 13),
+ eglexternalplatform-dev (>= 1.1),
+ eglexternalplatform-dev (<< 2),
+ libdrm-dev (>= 2.4.75),
+ libegl-dev,
+ libgbm-dev (>= 21.2),
+ meson (>= 0.50),
+ pkg-config,
+Standards-Version: 4.6.2
+Homepage: https://github.com/NVIDIA/egl-gbm
+Vcs-Browser: https://salsa.debian.org/nvidia-team/nvidia-egl-gbm
+Vcs-Git: https://salsa.debian.org/nvidia-team/nvidia-egl-gbm.git
+Rules-Requires-Root: no
+
+Package: libnvidia-egl-gbm1
+Architecture: amd64 i386 arm64 ppc64el
+Multi-Arch: same
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: GBM EGL external platform library for NVIDIA
+ This library provides GBM EGL application support when using the NVIDIA
+ driver.

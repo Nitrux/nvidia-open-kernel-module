@@ -1,0 +1,4 @@
+extra_files/check-for-mismatching-nvidia-module	usr/lib/nvidia/
+extra_files/alternate-install-present		usr/lib/nvidia/
+extra_files/pre-install				usr/lib/nvidia/
+extra_files/check-for-conflicting-opengl-libraries	usr/lib/nvidia/

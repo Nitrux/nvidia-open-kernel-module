@@ -1,0 +1,6 @@
+kernel/*		usr/src/modules/nvidia-kernel/
+extra_files/bug-script	usr/src/modules/nvidia-kernel/debian/
+debian/changelog	usr/src/modules/nvidia-kernel/debian/
+extra_files/control.models	usr/src/modules/nvidia-kernel/debian/
+debian/copyright	usr/src/modules/nvidia-kernel/debian/
+# debian/module/debian/*	usr/src/modules/nvidia-kernel/debian/

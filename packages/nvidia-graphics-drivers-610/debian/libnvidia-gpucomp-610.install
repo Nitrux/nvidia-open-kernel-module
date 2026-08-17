@@ -1,0 +1,3 @@
+#! /usr/bin/dh-exec
+libnvidia-gpucomp.so.610.57.04	usr/lib/${DEB_HOST_MULTIARCH}/
+libnvidia-sandboxutils.so.610.57.04 usr/lib/${DEB_HOST_MULTIARCH}/nvidia/current/

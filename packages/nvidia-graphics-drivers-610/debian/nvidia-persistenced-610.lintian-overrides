@@ -1,0 +1,2 @@
+# Upstream uses /var/run/nvidia-persistenced in various locations.
+adduser-with-home-var-run [postinst:*]

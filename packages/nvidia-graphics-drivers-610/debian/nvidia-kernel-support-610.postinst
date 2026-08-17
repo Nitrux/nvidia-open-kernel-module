@@ -1,0 +1,19 @@
+#!/bin/sh
+set -e
+
+if [ "$1" = "configure" ]
+then
+
+	if [ -f /etc/nvidia/current/nvidia-modprobe.conf.dpkg-old ] && [ ! -f /etc/nvidia/current/nvidia-modprobe.conf ]
+	then
+
+		# restore modprobe.conf erroneously obsoleted due to bugs in
+		# debhelper (#994919) and dpkg (#995387), causing #994971
+		mv -v /etc/nvidia/current/nvidia-modprobe.conf.dpkg-old /etc/nvidia/current/nvidia-modprobe.conf
+		dpkg-trigger --no-await register-nvidia-alternative
+
+	fi
+
+fi
+
+###DEBHELPER###

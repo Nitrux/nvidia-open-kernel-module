@@ -1,0 +1,11 @@
+#!/bin/sh
+set -e
+
+if [ "$1" = "configure" ]; then
+     if ! getent passwd nvpd >/dev/null; then
+       # Create ad-hoc system user/group
+       adduser --system --group                --home /var/run/nvpd/                --gecos 'NVIDIA Persistence Daemon'                --no-create-home                nvpd
+     fi
+fi
+
+#DEBHELPER#

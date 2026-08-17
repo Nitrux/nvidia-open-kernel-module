@@ -1,0 +1,5 @@
+nvidia-graphics-drivers-610 (610.57.04-101nitrux1) nitrux; urgency=medium
+
+  * Import package metadata for the Nitrux NVIDIA package set.
+
+ -- Nitrux Latinoamericana S.C. <hello@nxos.org>  Mon, 17 Aug 2026 00:00:00 -0600

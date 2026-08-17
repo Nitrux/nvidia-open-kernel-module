@@ -1,0 +1,6 @@
+#! /usr/bin/dh-exec
+libEGL_nvidia.so.610.57.04	usr/lib/${DEB_HOST_MULTIARCH}/nvidia/current/
+libnvidia-egl-xcb.so.1.0.5  usr/lib/${DEB_HOST_MULTIARCH}/nvidia/current/
+libnvidia-egl-xlib.so.1.0.5	usr/lib/${DEB_HOST_MULTIARCH}/nvidia/current/
+20_nvidia_xcb.json  /usr/share/egl/egl_external_platform.d/
+20_nvidia_xlib.json /usr/share/egl/egl_external_platform.d/

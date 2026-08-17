@@ -1,0 +1,2 @@
+usr/lib/*/libnvidia-egl-gbm.so*
+usr/share/egl/egl_external_platform.d/15_nvidia_gbm.json

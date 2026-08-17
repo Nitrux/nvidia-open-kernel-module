@@ -1,0 +1,3 @@
+nvidia-dbus.conf	usr/share/dbus-1/system.d/
+nvidia-powerd		usr/bin
+systemd/system/nvidia-powerd.service	usr/lib/systemd/system/

@@ -1,0 +1,37 @@
+#! /bin/bash
+
+if ls /dev/ 2>&1 | grep nvidia[0-9] 2>&1 > /dev/null
+then
+	true	
+else
+        for gpu in $(cat /proc/driver/nvidia/gpus/*/information | grep Minor | cut -d \  -f 4)
+        do
+                echo "Creating device node for NVGPU: ${gpu}"
+                /usr/bin/nvidia-modprobe -c${gpu}
+                /usr/bin/nvidia-modprobe -s -c${gpu}
+        done
+fi
+
+if [[ ! -e /dev/nvidia-uvm ]]
+then
+        echo "Creating Unified Memory device nodes"
+        /usr/bin/nvidia-modprobe -c0 -u
+fi
+
+if [[ ! -e /dev/nvidia-nvlink ]]
+then
+        echo "Creating Nvlink device nodes"
+        /usr/bin/nvidia-modprobe -l    
+fi
+
+if [[ ! -e /dev/nvidia-modeset ]]
+then
+        echo "Creating modeset device nodes"
+        /usr/bin/nvidia-modprobe -m    
+fi
+
+if [[ ! -e /dev/nvidiactl ]]
+then
+        echo "Creating NVIDIA Control device nodes"
+        nvidia-smi
+fi

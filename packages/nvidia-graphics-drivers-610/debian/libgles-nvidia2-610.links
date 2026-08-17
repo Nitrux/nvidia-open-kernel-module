@@ -1,0 +1,2 @@
+#! /usr/bin/dh-exec
+usr/lib/${DEB_HOST_MULTIARCH}/nvidia/current/libGLESv2_nvidia.so.610.57.04	usr/lib/${DEB_HOST_MULTIARCH}/nvidia/current/libGLESv2_nvidia.so.2

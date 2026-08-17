@@ -1,0 +1,10 @@
+systemd/system/nvidia-suspend.service	usr/lib/systemd/system/
+systemd/system/nvidia-hibernate.service	usr/lib/systemd/system/
+systemd/system/nvidia-resume.service	usr/lib/systemd/system/
+systemd/system/nvidia-suspend-then-hibernate.service usr/lib/systemd/system/
+systemd/system-sleep/nvidia		usr/lib/systemd/system-sleep/
+systemd/nvidia-sleep.sh			usr/bin/
+systemd/system/systemd-hibernate.service.d/nvidia-suspend-nofreeze.conf usr/lib/systemd/system/systemd-hibernate.service.d/
+systemd/system/systemd-hybrid-sleep.service.d/nvidia-suspend-nofreeze.conf usr/lib/systemd/system/systemd-hybrid-sleep.service.d/
+systemd/system/systemd-suspend-then-hibernate.service.d/nvidia-suspend-nofreeze.conf usr/lib/systemd/system/systemd-suspend-then-hibernate.service.d/
+systemd/system/systemd-suspend.service.d/nvidia-suspend-nofreeze.conf usr/lib/systemd/system/systemd-suspend.service.d/

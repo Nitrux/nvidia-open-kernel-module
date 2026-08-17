@@ -1,0 +1,4 @@
+#! /usr/bin/dh-exec
+usr/lib/${DEB_HOST_MULTIARCH}/nvidia/current/libEGL_nvidia.so.610.57.04	usr/lib/${DEB_HOST_MULTIARCH}/nvidia/current/libEGL_nvidia.so.0
+usr/lib/${DEB_HOST_MULTIARCH}/nvidia/current/libnvidia-egl-xcb.so.1.0.0  usr/lib/${DEB_HOST_MULTIARCH}/nvidia/current/libnvidia-egl-xcb.so.1
+usr/lib/${DEB_HOST_MULTIARCH}/nvidia/current/libnvidia-egl-xlib.so.1.0.0 usr/lib/${DEB_HOST_MULTIARCH}/nvidia/current/libnvidia-egl-xlib.so.1

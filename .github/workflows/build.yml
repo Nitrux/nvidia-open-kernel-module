@@ -1,0 +1,122 @@
+name: Build and publish NVIDIA packages.
+
+on:
+  workflow_dispatch:
+    inputs:
+      runner:
+        description: Runner label (use self-hosted or a larger runner when available)
+        required: true
+        default: ubuntu-24.04
+        type: string
+      publish:
+        description: Push the resulting packages to PackageCloud
+        required: true
+        default: false
+        type: boolean
+
+permissions:
+  contents: read
+
+jobs:
+  build-amd64:
+    runs-on: ${{ inputs.runner }}
+    timeout-minutes: 360
+
+    container:
+      image: debian:stable
+      env:
+        DEBIAN_FRONTEND: noninteractive
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Configure snapshot APT sources
+        run: |
+          echo 'Acquire::Check-Valid-Until "false";' > /etc/apt/apt.conf.d/10no-check-valid-until
+          cat <<EOF > /etc/apt/sources.list.d/debian.sources
+          Types: deb
+          URIs: http://snapshot.debian.org/archive/debian/20260725T202958Z
+          Suites: testing testing-updates
+          Components: main non-free non-free-firmware contrib
+          Signed-By: /usr/share/keyrings/debian-archive-keyring.gpg
+          Architectures: amd64
+          EOF
+          apt-get update
+          apt-get install -y ca-certificates curl gnupg
+          install -d -m 0755 /etc/apt/keyrings
+          curl -fsSL https://packagecloud.io/nitrux/testing/gpgkey -o /tmp/nitrux-testing.gpgkey
+          gpg --dearmor --yes -o /etc/apt/keyrings/nitrux-testing.gpg /tmp/nitrux-testing.gpgkey
+          chmod 0644 /etc/apt/keyrings/nitrux-testing.gpg
+          echo 'deb [signed-by=/etc/apt/keyrings/nitrux-testing.gpg] https://packagecloud.io/nitrux/testing/debian/ duke main' > /etc/apt/sources.list.d/nitrux.list
+          apt-get update
+
+      - name: Install matching kernel and headers
+        run: |
+          apt-get install -y \
+            linux-image-$(tr -d '[:space:]' < VERSION) \
+            linux-headers-$(tr -d '[:space:]' < VERSION)
+
+      - name: Build NVIDIA package set
+        run: ./gh-build.sh
+
+      - name: Install PackageCloud client
+        if: ${{ inputs.publish }}
+        run: apt-get install -y ruby-full ca-certificates && gem install --no-document package_cloud
+
+      - name: Push packages
+        if: ${{ inputs.publish }}
+        env:
+          PACKAGECLOUD_TOKEN: ${{ secrets.PACKAGECLOUD_TOKEN }}
+        run: package_cloud push nitrux/testing-fresh/debian/duke output/*.deb
+
+  build-arm64:
+    if: ${{ false }}
+    runs-on: ubuntu-24.04-arm
+    timeout-minutes: 360
+
+    container:
+      image: arm64v8/debian:stable
+      env:
+        DEBIAN_FRONTEND: noninteractive
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Configure snapshot APT sources
+        run: |
+          echo 'Acquire::Check-Valid-Until "false";' > /etc/apt/apt.conf.d/10no-check-valid-until
+          cat <<EOF > /etc/apt/sources.list.d/debian.sources
+          Types: deb
+          URIs: http://snapshot.debian.org/archive/debian/20260725T202958Z
+          Suites: testing testing-updates
+          Components: main non-free non-free-firmware contrib
+          Signed-By: /usr/share/keyrings/debian-archive-keyring.gpg
+          Architectures: arm64
+          EOF
+          apt-get update
+          apt-get install -y ca-certificates curl gnupg
+          install -d -m 0755 /etc/apt/keyrings
+          curl -fsSL https://packagecloud.io/nitrux/testing/gpgkey -o /tmp/nitrux-testing.gpgkey
+          gpg --dearmor --yes -o /etc/apt/keyrings/nitrux-testing.gpg /tmp/nitrux-testing.gpgkey
+          chmod 0644 /etc/apt/keyrings/nitrux-testing.gpg
+          echo 'deb [signed-by=/etc/apt/keyrings/nitrux-testing.gpg] https://packagecloud.io/nitrux/testing/debian/ duke main' > /etc/apt/sources.list.d/nitrux.list
+          apt-get update
+
+      - name: Install matching kernel and headers
+        run: |
+          apt-get install -y \
+            linux-image-$(tr -d '[:space:]' < VERSION) \
+            linux-headers-$(tr -d '[:space:]' < VERSION)
+
+      - name: Build NVIDIA package set
+        run: ./gh-build.sh
+
+      - name: Install PackageCloud client
+        if: ${{ inputs.publish }}
+        run: apt-get install -y ruby-full ca-certificates && gem install --no-document package_cloud
+
+      - name: Push packages
+        if: ${{ inputs.publish }}
+        env:
+          PACKAGECLOUD_TOKEN: ${{ secrets.PACKAGECLOUD_TOKEN }}
+        run: package_cloud push nitrux/testing-fresh/debian/duke output/*.deb
