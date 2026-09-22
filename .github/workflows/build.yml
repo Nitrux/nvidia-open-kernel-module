@@ -2,24 +2,13 @@ name: Build and publish NVIDIA packages.
 
 on:
   workflow_dispatch:
-    inputs:
-      runner:
-        description: Runner label (use self-hosted or a larger runner when available)
-        required: true
-        default: ubuntu-24.04
-        type: string
-      publish:
-        description: Push the resulting packages to PackageCloud
-        required: true
-        default: false
-        type: boolean
 
 permissions:
   contents: read
 
 jobs:
   build-amd64:
-    runs-on: ${{ inputs.runner }}
+    runs-on: ubuntu-24.04
     timeout-minutes: 360
 
     container:
@@ -61,23 +50,20 @@ jobs:
         run: ./gh-build.sh
 
       - name: Install PackageCloud client
-        if: ${{ inputs.publish }}
         run: apt-get install -y -o Dpkg::Options::=--force-overwrite ruby-full ca-certificates && gem install --no-document package_cloud
 
       - name: Remove existing packages
-        if: ${{ inputs.publish }}
         env:
           PACKAGECLOUD_TOKEN: ${{ secrets.PACKAGECLOUD_TOKEN }}
         run: |
           for package in output/*.deb; do
-            package_cloud yank nitrux/testing-fresh/debian/duke "$(basename "$package")"
+            package_cloud yank nitrux/nvidia/debian/duke "$(basename "$package")" || echo "Package not present in PackageCloud; continuing."
           done
 
       - name: Push packages
-        if: ${{ inputs.publish }}
         env:
           PACKAGECLOUD_TOKEN: ${{ secrets.PACKAGECLOUD_TOKEN }}
-        run: package_cloud push nitrux/testing-fresh/debian/duke output/*.deb
+        run: package_cloud push nitrux/nvidia/debian/duke output/*.deb
 
   build-arm64:
     if: ${{ false }}
@@ -123,20 +109,17 @@ jobs:
         run: ./gh-build.sh
 
       - name: Install PackageCloud client
-        if: ${{ inputs.publish }}
         run: apt-get install -y -o Dpkg::Options::=--force-overwrite ruby-full ca-certificates && gem install --no-document package_cloud
 
       - name: Remove existing packages
-        if: ${{ inputs.publish }}
         env:
           PACKAGECLOUD_TOKEN: ${{ secrets.PACKAGECLOUD_TOKEN }}
         run: |
           for package in output/*.deb; do
-            package_cloud yank nitrux/testing-fresh/debian/duke "$(basename "$package")"
+            package_cloud yank nitrux/nvidia/debian/duke "$(basename "$package")" || echo "Package not present in PackageCloud; continuing."
           done
 
       - name: Push packages
-        if: ${{ inputs.publish }}
         env:
           PACKAGECLOUD_TOKEN: ${{ secrets.PACKAGECLOUD_TOKEN }}
-        run: package_cloud push nitrux/testing-fresh/debian/duke output/*.deb
+        run: package_cloud push nitrux/nvidia/debian/duke output/*.deb
