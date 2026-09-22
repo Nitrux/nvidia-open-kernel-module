@@ -15,7 +15,9 @@ libOpenGL.so.0
 libglvnd_install_checker
 libnvidia-egl-gbm.so.1.1.3
 libnvidia-egl-wayland.so.1.1.20
-libnvidia-egl-wayland2.so.1.0.1
+libnvidia-egl-wayland2.so.1.0.2
+libnvidia-fmdrv.so.610.57.04
+libnvidia-imex.so.610.57.04
 libnvidia-pkcs11.so.610.57.04
 makeself-help-script.sh
 makeself.sh
@@ -27,6 +29,7 @@ nvidia-installer.1
 nvidia-installer.1.gz
 nvidia-modprobe.1
 nvidia-modprobe.1.gz
+nvidia-networking-bug-report.py
 nvidia-ngx-updater
 nvidia-persistenced-init.tar.bz2
 nvidia-persistenced.1
