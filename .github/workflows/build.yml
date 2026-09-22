@@ -42,17 +42,18 @@ jobs:
           Architectures: amd64
           EOF
           apt-get update
-          apt-get install -y ca-certificates curl gnupg
+          apt-get install -y -o Dpkg::Options::=--force-overwrite ca-certificates curl gnupg
           install -d -m 0755 /etc/apt/keyrings
           curl -fsSL https://packagecloud.io/nitrux/testing/gpgkey -o /tmp/nitrux-testing.gpgkey
           gpg --dearmor --yes -o /etc/apt/keyrings/nitrux-testing.gpg /tmp/nitrux-testing.gpgkey
           chmod 0644 /etc/apt/keyrings/nitrux-testing.gpg
           echo 'deb [signed-by=/etc/apt/keyrings/nitrux-testing.gpg] https://packagecloud.io/nitrux/testing/debian/ duke main' > /etc/apt/sources.list.d/nitrux.list
           apt-get update
+          apt-get -y --fix-broken dist-upgrade --allow-downgrades -o Dpkg::Options::=--force-overwrite
 
       - name: Install matching kernel and headers
         run: |
-          apt-get install -y \
+          apt-get install -y -o Dpkg::Options::=--force-overwrite \
             linux-image-$(tr -d '[:space:]' < VERSION) \
             linux-headers-$(tr -d '[:space:]' < VERSION)
 
@@ -61,7 +62,7 @@ jobs:
 
       - name: Install PackageCloud client
         if: ${{ inputs.publish }}
-        run: apt-get install -y ruby-full ca-certificates && gem install --no-document package_cloud
+        run: apt-get install -y -o Dpkg::Options::=--force-overwrite ruby-full ca-certificates && gem install --no-document package_cloud
 
       - name: Remove existing packages
         if: ${{ inputs.publish }}
@@ -103,17 +104,18 @@ jobs:
           Architectures: arm64
           EOF
           apt-get update
-          apt-get install -y ca-certificates curl gnupg
+          apt-get install -y -o Dpkg::Options::=--force-overwrite ca-certificates curl gnupg
           install -d -m 0755 /etc/apt/keyrings
           curl -fsSL https://packagecloud.io/nitrux/testing/gpgkey -o /tmp/nitrux-testing.gpgkey
           gpg --dearmor --yes -o /etc/apt/keyrings/nitrux-testing.gpg /tmp/nitrux-testing.gpgkey
           chmod 0644 /etc/apt/keyrings/nitrux-testing.gpg
           echo 'deb [signed-by=/etc/apt/keyrings/nitrux-testing.gpg] https://packagecloud.io/nitrux/testing/debian/ duke main' > /etc/apt/sources.list.d/nitrux.list
           apt-get update
+          apt-get -y --fix-broken dist-upgrade --allow-downgrades -o Dpkg::Options::=--force-overwrite
 
       - name: Install matching kernel and headers
         run: |
-          apt-get install -y \
+          apt-get install -y -o Dpkg::Options::=--force-overwrite \
             linux-image-$(tr -d '[:space:]' < VERSION) \
             linux-headers-$(tr -d '[:space:]' < VERSION)
 
@@ -122,7 +124,7 @@ jobs:
 
       - name: Install PackageCloud client
         if: ${{ inputs.publish }}
-        run: apt-get install -y ruby-full ca-certificates && gem install --no-document package_cloud
+        run: apt-get install -y -o Dpkg::Options::=--force-overwrite ruby-full ca-certificates && gem install --no-document package_cloud
 
       - name: Remove existing packages
         if: ${{ inputs.publish }}
