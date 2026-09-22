@@ -63,6 +63,15 @@ jobs:
         if: ${{ inputs.publish }}
         run: apt-get install -y ruby-full ca-certificates && gem install --no-document package_cloud
 
+      - name: Remove existing packages
+        if: ${{ inputs.publish }}
+        env:
+          PACKAGECLOUD_TOKEN: ${{ secrets.PACKAGECLOUD_TOKEN }}
+        run: |
+          for package in output/*.deb; do
+            package_cloud yank nitrux/testing-fresh/debian/duke "$(basename "$package")"
+          done
+
       - name: Push packages
         if: ${{ inputs.publish }}
         env:
@@ -114,6 +123,15 @@ jobs:
       - name: Install PackageCloud client
         if: ${{ inputs.publish }}
         run: apt-get install -y ruby-full ca-certificates && gem install --no-document package_cloud
+
+      - name: Remove existing packages
+        if: ${{ inputs.publish }}
+        env:
+          PACKAGECLOUD_TOKEN: ${{ secrets.PACKAGECLOUD_TOKEN }}
+        run: |
+          for package in output/*.deb; do
+            package_cloud yank nitrux/testing-fresh/debian/duke "$(basename "$package")"
+          done
 
       - name: Push packages
         if: ${{ inputs.publish }}
