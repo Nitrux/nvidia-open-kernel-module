@@ -6,8 +6,7 @@ Build-Depends: debhelper-compat (= 13),
                dh-sequence-libva,
                libffmpeg-nvenc-dev (>= 11.1.5.1~),
                libgstreamer-plugins-bad1.0-dev,
-               libdrm-dev,
-               meson (>= 0.58.0~),
+               libdrm-dev
 Standards-Version: 4.6.0
 Homepage: https://github.com/elFarto/nvidia-vaapi-driver
 Vcs-Browser: https://salsa.debian.org/Dami/nvidia-vaapi-driver

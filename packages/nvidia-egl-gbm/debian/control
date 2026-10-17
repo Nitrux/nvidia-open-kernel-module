@@ -11,7 +11,6 @@ Build-Depends:
  libdrm-dev (>= 2.4.75),
  libegl-dev,
  libgbm-dev (>= 21.2),
- meson (>= 0.50),
  pkg-config,
 Standards-Version: 4.6.2
 Homepage: https://github.com/NVIDIA/egl-gbm
