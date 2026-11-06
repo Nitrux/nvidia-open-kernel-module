@@ -7,9 +7,9 @@ set -euo pipefail
 
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 export DEBIAN_FRONTEND="${DEBIAN_FRONTEND:-noninteractive}"
-export NVIDIA_BRANCH="${NVIDIA_BRANCH:-610}"
 NVIDIA_VERSION_FULL="$(tr -d '[:space:]' < "$ROOT_DIR/NVIDIA_VERSION")"
 export NVIDIA_VERSION_FULL
+export NVIDIA_BRANCH="${NVIDIA_BRANCH:-${NVIDIA_VERSION_FULL%%.*}}"
 export NVIDIA_PACKAGE_VERSION="${NVIDIA_PACKAGE_VERSION:-${NVIDIA_VERSION_FULL}-101nitrux1}"
 KERNEL_VERSION="${KERNEL_VERSION:-$(tr -d '[:space:]' < "$ROOT_DIR/VERSION")}"
 export KERNEL_VERSION
@@ -62,9 +62,8 @@ case "$KERNEL_VERSION" in
 esac
 
 
-if [ "$NVIDIA_BRANCH" != "610" ]; then
-    echo "The imported NVIDIA user-space metadata currently targets branch 610." >&2
-    echo "Use NVIDIA_BRANCH=610 or update packages/nvidia-graphics-drivers-610 first." >&2
+if [ ! -d "$ROOT_DIR/packages/nvidia-graphics-drivers-$NVIDIA_BRANCH" ]; then
+    echo "Missing imported NVIDIA user-space metadata for branch $NVIDIA_BRANCH." >&2
     exit 1
 fi
 
@@ -94,9 +93,14 @@ build_driver_userspace() {
     local src="$ROOT_DIR/work/nvidia-graphics-drivers-$NVIDIA_BRANCH"
     cp -a "$ROOT_DIR/packages/nvidia-graphics-drivers-$NVIDIA_BRANCH" "$src"
 
+    local source_version source_version_pattern
+    source_version="$(dpkg-parsechangelog -l "$src/debian/changelog" --show-field Version)"
+    source_version="${source_version%%-*}"
+    source_version_pattern="${source_version//./\.}"
+
     while IFS= read -r file; do
         sed -i \
-            -e "s/610\.57\.04/$NVIDIA_VERSION_FULL/g" \
+            -e "s/$source_version_pattern/$NVIDIA_VERSION_FULL/g" \
             -e "s/101nitrux1/${NVIDIA_PACKAGE_VERSION##*-}/g" \
             "$file"
     done < <(find "$src/debian" -type f -not -path '*/source/format' -print)
@@ -142,8 +146,8 @@ build_meta_package() {
     local src="$ROOT_DIR/work/nitrux-nvidia"
     cp -a "$ROOT_DIR/packages/nitrux-nvidia" "$src"
     sed -i \
-        -e "s/580/610/g" \
-        -e "s/595/610/g" \
+        -e "s/580/$NVIDIA_BRANCH/g" \
+        -e "s/595/$NVIDIA_BRANCH/g" \
         -e "s/^Architecture: amd64$/Architecture: $TARGET_ARCH/" \
         -e "s/nitrux-kernel-legacy/linux-image-$KERNEL_VERSION, linux-headers-$KERNEL_VERSION/g" \
         -e "s/libnvidia-egl-wayland2/libnvidia-egl-wayland1/g" \

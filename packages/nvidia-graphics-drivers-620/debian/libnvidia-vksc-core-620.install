@@ -1,0 +1,4 @@
+#! /usr/bin/dh-exec
+libnvidia-vksc-core.so.620.70.06  usr/lib/${DEB_HOST_MULTIARCH}/nvidia/current/
+nvidia_icd_vksc.json usr/share/vulkansc/icd.d/
+nvidia-pcc usr/bin/

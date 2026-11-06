@@ -23,7 +23,7 @@ Install the matching Nitrux kernel and headers, then run:
 To build another driver or kernel version, edit the version files before running the builder:
 
 ```sh
-printf '610.58.02\n' > NVIDIA_VERSION
+printf '620.70.06\n' > NVIDIA_VERSION
 printf '7.1.9-nitrux\n' > VERSION
 ./gh-build.sh
 ```

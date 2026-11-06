@@ -1,0 +1,5 @@
+nvidia-graphics-drivers-620 (620.70.06-101nitrux1) nitrux; urgency=medium
+
+  * Update package metadata for NVIDIA driver branch 620.
+
+ -- Nitrux Latinoamericana S.C. <hello@nxos.org>  Fri, 06 Nov 2026 00:00:00 -0600
