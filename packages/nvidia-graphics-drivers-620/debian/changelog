@@ -1,3 +1,9 @@
+nvidia-graphics-drivers-620 (620.70.06-101nitrux2) nitrux; urgency=medium
+
+  * Package the NVIDIA NGX DLSS-SR runtime files.
+
+ -- Nitrux Latinoamericana S.C. <hello@nxos.org>  Fri, 06 Nov 2026 16:01:24 -0600
+
 nvidia-graphics-drivers-620 (620.70.06-101nitrux1) nitrux; urgency=medium
 
   * Update package metadata for NVIDIA driver branch 620.

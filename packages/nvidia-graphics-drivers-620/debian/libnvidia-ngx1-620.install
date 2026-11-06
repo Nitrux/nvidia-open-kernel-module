@@ -1,5 +1,7 @@
 #! /usr/bin/dh-exec
 libnvidia-ngx.so.620.70.06	usr/lib/${DEB_HOST_MULTIARCH}/nvidia/current/
+libnvidia-ngx-builtin-dlssd.so.310.9.0	usr/lib/${DEB_HOST_MULTIARCH}/nvidia/current/
 _nvngx.dll  usr/lib/${DEB_HOST_MULTIARCH}/nvidia/current/nvidia/wine
 nvngx.dll   usr/lib/${DEB_HOST_MULTIARCH}/nvidia/current/nvidia/wine
 nvngx_dlssg.dll usr/lib/${DEB_HOST_MULTIARCH}/nvidia/current/nvidia/wine
+ngx-builtins/nvngx_dlssd.dll usr/lib/${DEB_HOST_MULTIARCH}/nvidia/current/nvidia/wine/ngx-builtins/
