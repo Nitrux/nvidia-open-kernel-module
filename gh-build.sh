@@ -83,7 +83,7 @@ if [ "$SKIP_BUILD_DEPS" != "1" ] && command -v apt-get >/dev/null 2>&1; then
         exit 1
     fi
     "${APT[@]}" update -y
-    "${APT[@]}" install -y -- no-install-recommends build-essential debhelper-compat devscripts fakeroot git wget xz-utils libgstreamer-plugins-bad1.0-dev clang lld
+    "${APT[@]}" install -y --no-install-recommends build-essential debhelper-compat devscripts fakeroot git wget xz-utils libgstreamer-plugins-bad1.0-dev clang lld
 fi
 
 rm -rf "$ROOT_DIR/work" "$ROOT_DIR/output"
